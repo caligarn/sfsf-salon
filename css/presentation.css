@@ -1,0 +1,315 @@
+/* ============================================
+   SF/SF SALON — Presentation / Slide Styles
+   Shared by the-salon.html and session-1.html
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+/* NAV DOTS */
+.nav {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dim);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.nav-dot .nav-label {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: var(--dim);
+}
+
+.nav-dot:hover .nav-label,
+.nav-dot.active .nav-label {
+  opacity: 1;
+  color: var(--white);
+}
+
+/* SLIDES */
+.slide {
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-inner {
+  max-width: 1100px;
+  width: 90%;
+  padding: 40px 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* SLIDE TYPOGRAPHY */
+.slide-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 24px;
+}
+
+.slide-number span {
+  color: var(--accent);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.highlight { color: var(--accent); font-weight: 500; }
+.highlight-cyan { color: var(--accent2); font-weight: 500; }
+
+/* STATS */
+.stat {
+  font-family: var(--mono);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 8px;
+}
+
+/* QUOTES */
+.quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(22px, 3.5vw, 36px);
+  line-height: 1.4;
+  color: var(--white);
+  border-left: 2px solid var(--accent);
+  padding-left: 28px;
+  max-width: 700px;
+}
+
+.quote-attr {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  margin-top: 16px;
+  padding-left: 28px;
+}
+
+/* TITLE SLIDE */
+.title-slide h1 {
+  font-size: clamp(48px, 10vw, 120px);
+}
+
+.title-slide .subtitle {
+  font-family: var(--mono);
+  font-size: clamp(12px, 1.5vw, 15px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 24px;
+}
+
+.title-slide .date-line {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+}
+
+/* GRID LAYOUTS */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.triple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+/* CARDS */
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 32px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  background: rgba(255,61,0,0.03);
+}
+
+.card-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.card-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #888;
+  font-weight: 300;
+}
+
+/* TAGS */
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--mid);
+  color: var(--dim);
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.tag.red { border-color: var(--accent); color: var(--accent); }
+.tag.cyan { border-color: var(--accent2); color: var(--accent2); }
+
+/* SCANLINES (the-salon only uses this but it's presentation-related) */
+.bg-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* CTA BOX */
+.cta-box {
+  border: 1px solid var(--accent);
+  padding: 40px;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,61,0,0.06), transparent);
+}
+
+.cta-box * { position: relative; z-index: 1; }
+
+/* KEY HINT */
+.key-hint {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 1s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.key-hint .arrow {
+  display: inline-block;
+  animation: bounce 2s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .split { grid-template-columns: 1fr; gap: 32px; }
+  .triple { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  html { scroll-snap-type: none; }
+  .slide { min-height: 100vh; height: auto; padding: 80px 0; }
+}

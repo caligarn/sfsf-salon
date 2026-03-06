@@ -6,29 +6,9 @@
 <title>THE SF/SF SALON — Science Fiction for the Moment</title>
 <meta name="description" content="A biweekly salon in San Francisco exploring science fiction in the age of AI — when reality moves faster than fiction can keep up.">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/shared.css">
 <style>
-  :root {
-    --black: #0a0a0c;
-    --white: #e8e6e1;
-    --accent: #ff3d00;
-    --accent2: #00e5ff;
-    --dim: #5a5a64;
-    --mid: #2a2a30;
-    --serif: 'Instrument Serif', Georgia, serif;
-    --mono: 'Space Mono', monospace;
-    --sans: 'DM Sans', sans-serif;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; overflow-x: hidden; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: var(--sans);
-    -webkit-font-smoothing: antialiased;
-  }
+  html { scroll-behavior: smooth; }
 
   /* NAV */
   .site-nav {
@@ -82,46 +62,6 @@
     position: relative;
     overflow: hidden;
   }
-
-  .bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: 0;
-  }
-
-  .bg-glow {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(150px);
-    opacity: 0.12;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .bg-glow.red { background: var(--accent); }
-  .bg-glow.cyan { background: var(--accent2); }
-
-  .bg-noise {
-    position: absolute;
-    inset: 0;
-    opacity: 0.035;
-    z-index: 1;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 128px 128px;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.12; }
-    50% { opacity: 0.2; }
-  }
-  .pulse { animation: pulse 4s ease infinite; }
 
   .hero-inner {
     position: relative;
@@ -206,9 +146,6 @@
   }
 
   .divider {
-    width: 60px;
-    height: 1px;
-    background: var(--accent);
     margin: 32px auto;
   }
 
@@ -245,14 +182,6 @@
     line-height: 1.15;
     letter-spacing: -0.01em;
     margin-bottom: 24px;
-  }
-
-  .body-text {
-    font-size: clamp(15px, 1.8vw, 18px);
-    line-height: 1.7;
-    color: #b0aead;
-    font-weight: 300;
-    max-width: 640px;
   }
 
   /* THESIS */
@@ -520,22 +449,6 @@
     color: var(--dim);
     text-align: right;
   }
-
-  /* ANIMATIONS */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .fade-in-delay-1 { transition-delay: 0.15s; }
-  .fade-in-delay-2 { transition-delay: 0.3s; }
-  .fade-in-delay-3 { transition-delay: 0.45s; }
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
