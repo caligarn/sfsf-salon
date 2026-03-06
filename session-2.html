@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SF/SF SALON — Session 2: Resonating Stories</title>
+<meta name="description" content="Session 2 of the SF/SF Salon — suggested reading, sci-fi themes that matter now, and stories resonating in this moment.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0c;
+    --white: #e8e6e1;
+    --accent: #ff3d00;
+    --accent2: #00e5ff;
+    --dim: #5a5a64;
+    --mid: #2a2a30;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,12,0.95), transparent);
+  }
+
+  .site-nav .logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .site-nav .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 48px 60px;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-glow.red { background: var(--accent); }
+  .bg-glow.cyan { background: var(--accent2); }
+
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.12; }
+    50% { opacity: 0.2; }
+  }
+
+  .pulse { animation: pulse 4s ease infinite; }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--accent2);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 24px auto;
+  }
+
+  .hero-body {
+    font-size: 16px;
+    color: #b0aead;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* SECTIONS */
+  .session-section {
+    position: relative;
+    padding: 80px 48px;
+    overflow: hidden;
+  }
+
+  .session-section:nth-child(even) {
+    background: rgba(255,255,255,0.01);
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  .section-label span {
+    color: var(--accent);
+    margin-right: 4px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .body-text {
+    font-size: 16px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* SCHEDULE */
+  .schedule {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .schedule-block {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--mid);
+  }
+
+  .schedule-block:first-child {
+    border-top: 1px solid var(--mid);
+  }
+
+  .schedule-time {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+
+  .schedule-content h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .schedule-content p {
+    font-size: 15px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* CARDS */
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--mid);
+    border-radius: 8px;
+    padding: 28px 32px;
+    transition: border-color 0.3s ease;
+  }
+
+  .card:hover { border-color: var(--dim); }
+
+  .card p {
+    font-size: 15px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .card-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  /* READING CTA */
+  .reading-card {
+    background: rgba(255,61,0,0.05);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 36px 40px;
+    margin-top: 32px;
+  }
+
+  .reading-card h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .reading-card p {
+    font-size: 15px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .btn {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+  }
+
+  .btn-primary:hover {
+    background: #ff5722;
+    box-shadow: 0 0 24px rgba(255,61,0,0.3);
+  }
+
+  /* LOOKING AHEAD */
+  .ahead-section {
+    position: relative;
+    padding: 100px 48px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .ahead-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--mid);
+  }
+
+  footer .logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  footer .logo span { color: var(--accent); }
+
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    text-align: right;
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.15s; }
+  .fade-in-delay-2 { transition-delay: 0.3s; }
+  .fade-in-delay-3 { transition-delay: 0.45s; }
+  .fade-in-delay-4 { transition-delay: 0.6s; }
+
+  @media (max-width: 768px) {
+    .site-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 40px; }
+    .session-section { padding: 60px 24px; }
+    .ahead-section { padding: 60px 24px; }
+    .two-col { grid-template-columns: 1fr; }
+    .schedule-block { grid-template-columns: 1fr; gap: 8px; }
+    .reading-card { padding: 28px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    footer .footer-meta { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="/" class="logo">SF<span>/</span>SF Salon</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="the-salon.html">Presentation</a></li>
+    <li><a href="session-1.html">Session 1</a></li>
+    <li><a href="feedback.html">Feedback</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -300px; left: -200px;"></div>
+  <div class="hero-inner">
+    <div class="eyebrow fade-in">Session 02 · Late March 2026</div>
+    <h1 class="fade-in fade-in-delay-1">Resonating<br>Stories</h1>
+    <div class="hero-sub fade-in fade-in-delay-2">Sci-fi themes that matter right now</div>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="hero-body fade-in fade-in-delay-3">
+      What sci-fi themes are important to cover in this moment? What stories are resonating? Come with a suggested reading under your belt and ideas about the future of the genre.
+    </p>
+  </div>
+</section>
+
+<!-- PRE-SESSION READING -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>01</span> — Pre-Session Reading</div>
+    <h2 class="fade-in fade-in-delay-1">Come <em style="color:var(--accent)">prepared.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <p class="body-text fade-in fade-in-delay-2">
+      We're adding a shared reading component based on feedback from Session 1. Read the short story below before attending. You'll have the first 10 minutes of the session to share your quick reactions — what resonated, what surprised you, what it got wrong.
+    </p>
+    <div class="reading-card fade-in fade-in-delay-3">
+      <div class="card-title">Suggested Reading</div>
+      <h3>From the <em>Mirrorshades</em> Anthology</h3>
+      <p>A short story from Bruce Sterling's landmark cyberpunk collection. Read it before the session — it will anchor our opening discussion.</p>
+      <a href="https://www.rudyrucker.com/mirrorshades/HTML/#calibre_link-24" target="_blank" rel="noopener" class="btn btn-primary">Read the Story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>02</span> — Schedule</div>
+    <h2 class="fade-in fade-in-delay-1">How the evening <em style="color:var(--accent2)">unfolds.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <div class="schedule fade-in fade-in-delay-2">
+      <div class="schedule-block">
+        <div class="schedule-time">0:00 — 0:10</div>
+        <div class="schedule-content">
+          <h3>Opening &amp; Reading Reactions</h3>
+          <p>Quick round-the-room reactions to the suggested reading. What stuck with you? What felt prescient? What felt dated? Keep it tight — everyone gets a minute.</p>
+        </div>
+      </div>
+      <div class="schedule-block">
+        <div class="schedule-time">0:10 — 0:40</div>
+        <div class="schedule-content">
+          <h3>Resonating Themes</h3>
+          <p>Open discussion: what sci-fi themes do we think are important to cover right now? What stories — books, films, shows, games — are resonating in this moment? What's missing from the conversation?</p>
+        </div>
+      </div>
+      <div class="schedule-block">
+        <div class="schedule-time">0:40 — 1:00</div>
+        <div class="schedule-content">
+          <h3>Breakout Conversations</h3>
+          <p>Split into small groups to go deeper on the themes that surfaced. Each group picks one theme and discusses: why does this matter now, and what would a great story about it look like?</p>
+        </div>
+      </div>
+      <div class="schedule-block">
+        <div class="schedule-time">1:00 — 1:15</div>
+        <div class="schedule-content">
+          <h3>Group Report-Back</h3>
+          <p>Each breakout group shares their top theme and story idea with the full room. Brief, focused — what emerged from the conversation?</p>
+        </div>
+      </div>
+      <div class="schedule-block">
+        <div class="schedule-time">1:15+</div>
+        <div class="schedule-content">
+          <h3>Open Social</h3>
+          <p>Unstructured mingle time. Continue conversations, make connections, or head out — no awkwardness either way. The structured portion is done.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOOKING AHEAD -->
+<section class="ahead-section">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; left: -200px;"></div>
+  <div class="ahead-inner">
+    <div class="section-label fade-in"><span>03</span> — Looking Ahead</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(28px, 5vw, 56px);">Session 3:<br><em style="color:var(--accent)">Your Ideas</em></h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="body-text fade-in fade-in-delay-2" style="text-align: center; margin: 0 auto;">
+      In Session 3, we'll break into groups and talk about sci-fi ideas we would personally like to work on. Start thinking about yours now.
+    </p>
+    <div class="fade-in fade-in-delay-3" style="margin-top: 48px;">
+      <p style="font-family: var(--serif); font-size: 24px; margin-bottom: 8px;">THE SF/SF SALON</p>
+      <p style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--dim);">BIWEEKLY · BAY AREA · 2026</p>
+      <p style="font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 16px;">MACHINE CINEMA</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">SF<span>/</span>SF Salon · Machine Cinema</div>
+  <div class="footer-meta">
+    <div>Biweekly · Bay Area · 2026</div>
+    <div style="margin-top:4px;"><a href="/" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Home</a> · <a href="session-1.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Session 1</a> · <a href="feedback.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Feedback</a></div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
