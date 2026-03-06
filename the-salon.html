@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SF/SF SALON — When Sci-Fi Can't Keep Up</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0c;
+    --white: #e8e6e1;
+    --accent: #ff3d00;
+    --accent2: #00e5ff;
+    --dim: #5a5a64;
+    --mid: #2a2a30;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 1000;
+    transition: width 0.3s ease;
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dim);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  .nav-dot .nav-label {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--dim);
+  }
+
+  .nav-dot:hover .nav-label,
+  .nav-dot.active .nav-label {
+    opacity: 1;
+    color: var(--white);
+  }
+
+  /* SLIDE */
+  .slide {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide-inner {
+    max-width: 1100px;
+    width: 90%;
+    padding: 40px 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* TYPOGRAPHY */
+  .slide-number {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  .slide-number span {
+    color: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  .body-text {
+    font-family: var(--sans);
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.7;
+    color: #b0aead;
+    max-width: 640px;
+    font-weight: 300;
+  }
+
+  .highlight {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .highlight-cyan {
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  .stat {
+    font-family: var(--mono);
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 8px;
+  }
+
+  .quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(22px, 3.5vw, 36px);
+    line-height: 1.4;
+    color: var(--white);
+    border-left: 2px solid var(--accent);
+    padding-left: 28px;
+    max-width: 700px;
+  }
+
+  .quote-attr {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-top: 16px;
+    padding-left: 28px;
+  }
+
+  /* TITLE SLIDE */
+  .title-slide h1 {
+    font-size: clamp(48px, 10vw, 120px);
+  }
+
+  .title-slide .subtitle {
+    font-family: var(--mono);
+    font-size: clamp(12px, 1.5vw, 15px);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 24px;
+  }
+
+  .title-slide .date-line {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+
+  /* GRID LAYOUTS */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .triple {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 32px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    background: rgba(255,61,0,0.03);
+  }
+
+  .card-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .card-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #888;
+    font-weight: 300;
+  }
+
+  .card-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    border-left: 1px solid var(--mid);
+  }
+
+  .timeline-item {
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--mid);
+    border: 2px solid var(--black);
+  }
+
+  .timeline-item.hot::before {
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .timeline-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .timeline-desc {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* BACKGROUND EFFECTS */
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-glow.red { background: var(--accent); }
+  .bg-glow.cyan { background: var(--accent2); }
+
+  .bg-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 24px 0;
+  }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--mid);
+    color: var(--dim);
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+
+  .tag.red {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .tag.cyan {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  /* SCROLL-IN ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.15s; }
+  .fade-in-delay-2 { transition-delay: 0.3s; }
+  .fade-in-delay-3 { transition-delay: 0.45s; }
+  .fade-in-delay-4 { transition-delay: 0.6s; }
+
+  /* VS SECTION */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-top: 32px;
+  }
+
+  .vs-divider {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.2em;
+    padding-top: 20px;
+  }
+
+  .vs-list {
+    list-style: none;
+  }
+
+  .vs-list li {
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-weight: 300;
+    color: #999;
+  }
+
+  .vs-list li strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .vs-header {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .vs-header.resist { color: var(--accent); }
+  .vs-header.embrace { color: var(--accent2); }
+
+  /* FINAL CTA */
+  .cta-box {
+    border: 1px solid var(--accent);
+    padding: 40px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,61,0,0.06), transparent);
+  }
+
+  .cta-box * { position: relative; z-index: 1; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .split { grid-template-columns: 1fr; gap: 32px; }
+    .triple { grid-template-columns: 1fr; }
+    .vs-grid { grid-template-columns: 1fr; }
+    .vs-divider { text-align: center; padding: 8px 0; }
+    .nav { display: none; }
+    html { scroll-snap-type: none; }
+    .slide { min-height: 100vh; height: auto; padding: 80px 0; }
+  }
+
+  /* KEYBOARD HINT */
+  .key-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 1s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .key-hint .arrow {
+    display: inline-block;
+    animation: bounce 2s ease infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.12; }
+    50% { opacity: 0.2; }
+  }
+
+  .pulse { animation: pulse 4s ease infinite; }
+
+  /* ACCELERATION GRID */
+  .accel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .accel-item {
+    padding: 16px 20px;
+    border-left: 2px solid var(--mid);
+    transition: border-color 0.3s ease;
+  }
+
+  .accel-item:hover { border-color: var(--accent); }
+
+  .accel-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .accel-title {
+    font-family: var(--serif);
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+
+  .accel-desc {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.45;
+    font-weight: 300;
+  }
+
+  /* HERITAGE */
+  .heritage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .heritage-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .heritage-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .heritage-card:hover::after { opacity: 1; }
+
+  .heritage-era {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent2);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .heritage-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+
+  .heritage-detail {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.45;
+    font-weight: 300;
+  }
+
+  /* CONVERGENCE COLS */
+  .convergence-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 32px;
+  }
+
+  .convergence-col {
+    border-top: 2px solid var(--mid);
+    padding-top: 20px;
+  }
+
+  .convergence-col.active-col { border-color: var(--accent); }
+
+  .convergence-col h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+
+  .convergence-col p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #888;
+    font-weight: 300;
+  }
+
+  @media (max-width: 768px) {
+    .accel-grid { grid-template-columns: 1fr; }
+    .heritage-grid { grid-template-columns: 1fr; }
+    .convergence-cols { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="navDots"></nav>
+
+<div class="key-hint" id="keyHint">
+  scroll to navigate <span class="arrow">↓</span>
+</div>
+
+<!-- SLIDE 0: TITLE -->
+<section class="slide title-slide" data-label="Title">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -300px; left: -200px;"></div>
+  <div class="slide-inner" style="text-align: center;">
+    <div class="date-line fade-in">A Biweekly Salon Series · Bay Area · 2026</div>
+    <h1 class="fade-in fade-in-delay-1">THE SF/SF<br>SALON</h1>
+    <div class="subtitle fade-in fade-in-delay-2" style="max-width: 600px; margin: 0 auto;">When reality moves faster than fiction — and sci-fi can't keep up</div>
+    <div class="divider fade-in fade-in-delay-3" style="margin: 32px auto;"></div>
+    <p class="body-text fade-in fade-in-delay-4" style="margin: 0 auto; text-align: center; max-width: 520px;">
+      AI is rewriting the world in real time. The genre built to warn us about the future has fallen behind the present. This salon asks: what comes next?
+    </p>
+  </div>
+</section>
+
+<!-- SLIDE 0B: SCI-FI QUOTES -->
+<section class="slide" data-label="Why Sci-Fi">
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; right: -200px;"></div>
+  <div class="slide-inner" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
+    <div class="slide-number fade-in" style="text-align: center;"><span>01</span> — Why Science Fiction Matters</div>
+    <div class="fade-in fade-in-delay-1" style="max-width: 700px; margin: 0 auto;">
+      <div class="quote" style="border-left: none; text-align: center; padding-left: 0; margin-bottom: 28px; font-size: clamp(16px, 2.2vw, 22px);">
+        Science fiction is the most important literature in the history of the world, because it's the history of ideas, the history of our civilization birthing itself.
+      </div>
+      <div class="quote-attr" style="text-align: center; padding-left: 0; margin-bottom: 40px;">— Ray Bradbury</div>
+    </div>
+    <div class="fade-in fade-in-delay-2" style="max-width: 700px; margin: 0 auto;">
+      <div class="quote" style="border-left: none; text-align: center; padding-left: 0; margin-bottom: 28px; font-size: clamp(16px, 2.2vw, 22px);">
+        Science fiction frees you to go anyplace and examine anything.
+      </div>
+      <div class="quote-attr" style="text-align: center; padding-left: 0; margin-bottom: 40px;">— Octavia E. Butler</div>
+    </div>
+    <div class="fade-in fade-in-delay-3" style="max-width: 700px; margin: 0 auto;">
+      <div class="quote" style="border-left: none; text-align: center; padding-left: 0; margin-bottom: 28px; font-size: clamp(16px, 2.2vw, 22px);">
+        Science fiction seldom attempts to predict the future. More often than not, it tries to prevent the future.
+      </div>
+      <div class="quote-attr" style="text-align: center; padding-left: 0;">— Arthur C. Clarke</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 1: THE THESIS -->
+<section class="slide" data-label="The Thesis">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -100px; left: -100px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>02</span> — The Thesis</div>
+    <h2 class="fade-in fade-in-delay-1">Sci-fi was our early warning system.<br>It's now <em style="color:var(--accent)">running behind.</em></h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="body-text fade-in fade-in-delay-3">
+      For a century, science fiction prepared us for the future — nuclear weapons, surveillance states, genetic engineering, space travel. But AI has broken the pattern. Most published sci-fi about AI is <span class="highlight">already outdated by the time it reaches shelves</span>. The genre that once ran decades ahead is now months behind. If fiction can't keep up with reality, who tells the story of what's happening to us?
+    </p>
+  </div>
+</section>
+
+<!-- SLIDE 2: THE SPEED -->
+<section class="slide" data-label="The Speed">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>03</span> — The Speed</div>
+    <div class="split">
+      <div>
+        <h2 class="fade-in">Everything happened<br>in <em style="color:var(--accent)">39 months.</em></h2>
+        <div class="divider fade-in fade-in-delay-1"></div>
+        <p class="body-text fade-in fade-in-delay-2">
+          From ChatGPT's quiet launch as a "research preview" to a geopolitical standoff between an AI company and the Pentagon — in just over three years. No sci-fi novel imagined this pace.
+        </p>
+      </div>
+      <div style="text-align: right;">
+        <div class="fade-in">
+          <div class="stat">100M</div>
+          <div class="stat-label">Users in 2 months</div>
+        </div>
+        <div class="fade-in fade-in-delay-1" style="margin-top: 32px;">
+          <div class="stat">70+</div>
+          <div class="stat-label">Copyright lawsuits filed</div>
+        </div>
+        <div class="fade-in fade-in-delay-2" style="margin-top: 32px;">
+          <div class="stat">$600B</div>
+          <div class="stat-label">Nvidia value lost in one day</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: TIMELINE ACT I -->
+<section class="slide" data-label="Act I">
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; left: -200px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>04</span> — Act I: The Dam Breaks</div>
+    <h2 class="fade-in fade-in-delay-1" style="margin-bottom: 24px;">2022–2024</h2>
+    <div class="timeline fade-in fade-in-delay-2">
+      <div class="timeline-item hot">
+        <div class="timeline-date">Nov 2022</div>
+        <div class="timeline-title">ChatGPT launches</div>
+        <div class="timeline-desc">Released as a "free research preview." OpenAI's own board found out on Twitter. 100M users in 2 months — fastest-adopted app in history.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mar 2023</div>
+        <div class="timeline-title">GPT-4 + the "Pause" letter</div>
+        <div class="timeline-desc">1,000+ signatures call for a 6-month halt to the "out-of-control race." Nobody pauses.</div>
+      </div>
+      <div class="timeline-item hot">
+        <div class="timeline-date">May–Nov 2023</div>
+        <div class="timeline-title">Hollywood strikes for 148 days</div>
+        <div class="timeline-desc">Writers and actors walk out over AI replacing creative labor. The sci-fi resistance plot — inside the industry that makes sci-fi.</div>
+      </div>
+      <div class="timeline-item hot">
+        <div class="timeline-date">Nov 2023</div>
+        <div class="timeline-title">The OpenAI Coup</div>
+        <div class="timeline-desc">Board fires Altman over safety concerns. 770 employees threaten to quit. Altman returns in 5 days. Safety loses. Capital wins. A movie is in production.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Dec 2023</div>
+        <div class="timeline-title">NYT sues OpenAI</div>
+        <div class="timeline-desc">The copyright wars begin. Is training on human creativity "learning" or "theft"? 70+ lawsuits follow.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Aug 2024</div>
+        <div class="timeline-title">EU AI Act takes effect</div>
+        <div class="timeline-desc">The world's first comprehensive AI law. By the time provisions kick in, the landscape has already shifted.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: TIMELINE ACT II -->
+<section class="slide" data-label="Act II">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; right: -200px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>05</span> — Act II: It Accelerates</div>
+    <h2 class="fade-in fade-in-delay-1" style="margin-bottom: 24px;">2025–Now</h2>
+    <div class="timeline fade-in fade-in-delay-2">
+      <div class="timeline-item hot">
+        <div class="timeline-date">Jan 2025</div>
+        <div class="timeline-title">DeepSeek shocks the world</div>
+        <div class="timeline-desc">Chinese startup under U.S. chip sanctions matches GPT-4 at a fraction of the cost ($6M vs $100M+). Tops ChatGPT on App Store. Nvidia loses $600B in a day. U.S. "restrict their chips" strategy proven wrong.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Spring 2025</div>
+        <div class="timeline-title">Reasoning models arrive</div>
+        <div class="timeline-desc">AI learns to "think step by step." Math and coding performance jumps overnight. Agents start doing things, not just answering questions.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mid 2025</div>
+        <div class="timeline-title">AI chatbot harm lawsuits</div>
+        <div class="timeline-desc">Wave of lawsuits: 4 deaths, 3 survivors. A 16-year-old suicide blamed on ChatGPT. The human cost enters the courtroom.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Late 2025</div>
+        <div class="timeline-title">The "chatbot era" ends</div>
+        <div class="timeline-desc">World models, agentic browsers, multi-agent systems. $300B+ spent on AI infrastructure. AI task capability now doubles every 4.5 months.</div>
+      </div>
+      <div class="timeline-item hot">
+        <div class="timeline-date">Feb 2026</div>
+        <div class="timeline-title">Anthropic vs. the Pentagon</div>
+        <div class="timeline-desc">Anthropic refuses to remove AI safety limits for military. Trump bans all federal use. Designates them a "supply chain risk." Hours later, OpenAI signs its own Pentagon deal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: THE LITERARY DIVIDE -->
+<section class="slide" data-label="The Divide">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>06</span> — The Literary Divide</div>
+    <h2 class="fade-in fade-in-delay-1">Sci-fi is split —<br>and that <em>is</em> the story.</h2>
+    <div class="vs-grid fade-in fade-in-delay-2">
+      <div>
+        <div class="vs-header resist">Resistant</div>
+        <ul class="vs-list">
+          <li><strong>Ted Chiang</strong> — AI as "a blurry JPEG of the web"</li>
+          <li><strong>Cory Doctorow</strong> — coined "enshittification"</li>
+          <li><strong>N.K. Jemisin</strong> — AI threatens marginalized creators</li>
+          <li><strong>Kim Stanley Robinson</strong> — AI hype distracts from climate</li>
+          <li><strong>Margaret Atwood</strong> — surveillance & control frame</li>
+        </ul>
+      </div>
+      <div class="vs-divider">VS</div>
+      <div>
+        <div class="vs-header embrace">Engaged</div>
+        <ul class="vs-list">
+          <li><strong>Greg Egan</strong> — consciousness & simulation</li>
+          <li><strong>Hannu Rajaniemi</strong> — physicist, AI co-founder</li>
+          <li><strong>Ken Liu</strong> — Chinese sci-fi bridge</li>
+          <li><strong>Ramez Naam</strong> — technologist-writer hybrid</li>
+          <li><strong>Neal Stephenson</strong> — built the future (literally)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="body-text fade-in fade-in-delay-3" style="margin-top: 32px;">
+      Almost no literary sci-fi writer is publicly pro-AI right now. The pro-AI voices are <span class="highlight">technologists who write</span>, not writers who engage with technology. That gap is the thesis.
+    </p>
+  </div>
+</section>
+
+<!-- SLIDE 10: BAY AREA HERITAGE -->
+<section class="slide" data-label="Heritage">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; left: 20%;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -100px; right: -100px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>07</span> — The Heritage</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(26px, 3.8vw, 42px);">This isn't new ground.<br>The Bay Area <em style="color:var(--accent2)">invented</em> sci-fi futures.</h2>
+    <p class="body-text fade-in fade-in-delay-2" style="margin-bottom: 4px; max-width: 100%; font-size: 14px;">
+      Before it was the capital of AI, San Francisco was the capital of imagining what technology would do to us.
+    </p>
+    <div class="heritage-grid fade-in fade-in-delay-3">
+      <div class="heritage-card">
+        <div class="heritage-era">Writers · Berkeley</div>
+        <div class="heritage-name">Philip K. Dick</div>
+        <div class="heritage-detail">Grew up in Berkeley. Wrote <em>Do Androids Dream?</em> and <em>The Man in the High Castle</em> — set in a Japanese-occupied SF. 11 films from his work.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">Writers · Berkeley</div>
+        <div class="heritage-name">Ursula K. Le Guin</div>
+        <div class="heritage-detail">Berkeley native — same high school class of '47 as Dick. <em>The Left Hand of Darkness</em> and <em>The Dispossessed</em> remain foundational.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">Writers · Potrero Hill</div>
+        <div class="heritage-name">Frank Herbert</div>
+        <div class="heritage-detail">SF Examiner reporter, Potrero Hill resident. Wrote <em>Dune</em> — one of the best-selling sci-fi novels ever — from his San Francisco home.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">Writers · Bay Area</div>
+        <div class="heritage-name">Andy Weir</div>
+        <div class="heritage-detail">Bay Area native, software engineer turned novelist. Self-published <em>The Martian</em> — became a Ridley Scott film and global phenomenon.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">Studios · Marin / Emeryville</div>
+        <div class="heritage-name">Lucasfilm & Pixar</div>
+        <div class="heritage-detail">ILM in the Presidio. Pixar in Emeryville. Skywalker Ranch in Marin. The Bay invented modern visual storytelling — Star Wars to Toy Story.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">Today · Bay Area</div>
+        <div class="heritage-name">The New Wave</div>
+        <div class="heritage-detail">Charlie Jane Anders, Annalee Newitz (co-founded io9), Becky Chambers — Hugo winners. Cory Doctorow setting novels in post-surveillance SF.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">Institutions</div>
+        <div class="heritage-name">The Infrastructure</div>
+        <div class="heritage-detail">The Long Now Foundation. Borderlands Books. Litquake. SF in SF. <em>The Magazine of Fantasy & Science Fiction</em> — co-founded in Berkeley.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">The Pattern</div>
+        <div class="heritage-name">Every Wave Makes Art</div>
+        <div class="heritage-detail">Gold Rush → Beat poets → counterculture → personal computing → the web → social media → AI. Every transformation has produced new culture.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11: SF AS ARTS HUB -->
+<section class="slide" data-label="The Return">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; left: -100px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>08</span> — The Convergence</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(28px, 4.5vw, 48px);">San Francisco is becoming<br>an <em style="color:var(--accent)">arts capital</em> again.</h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="body-text fade-in fade-in-delay-2" style="max-width: 100%;">
+      The same AI boom reshaping the world is pulling creative energy back into the city. Not despite the tech — <span class="highlight">because of it.</span>
+    </p>
+    <div class="convergence-cols fade-in fade-in-delay-3">
+      <div class="convergence-col">
+        <h3>The Tension</h3>
+        <p>Five major galleries closed in late 2025. CCA is shutting down. AI anxiety runs deep. But artist Trevor Paglen says: "We're being forced to reckon with what art even is in a post-AI culture — and the answer is something magical."</p>
+      </div>
+      <div class="convergence-col active-col">
+        <h3>The Energy</h3>
+        <p>AI Renaissance Summit. HumanX at Moscone. SF Art Week growing. Noise Pop's 33rd edition. The Castro Theatre reopening. $7.5M in city arts grants. The Bay Area is poised for its most dynamic cultural year in memory.</p>
+      </div>
+      <div class="convergence-col">
+        <h3>The Opportunity</h3>
+        <p>Every tech wave in SF produced a counter-wave. Beat poets answered Cold War conformity. Counterculture answered Vietnam. Punk answered corporate rock. What answers AI? The artists are here — they just need a stage.</p>
+      </div>
+    </div>
+    <p class="body-text fade-in fade-in-delay-4" style="margin-top: 28px; max-width: 100%; text-align: center; color: var(--accent); font-weight: 400; font-family: var(--serif); font-size: 22px;">
+      The SF/SF Salon is that stage.
+    </p>
+  </div>
+</section>
+
+<!-- SLIDE 12: THE PHILOSOPHIES -->
+<section class="slide" data-label="Philosophies">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="top: -150px; left: -100px;"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; right: -150px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>09</span> — The New Philosophies</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(26px, 3.8vw, 42px);">Beyond doomer vs. booster.<br>New frameworks are <em style="color:var(--accent2)">emerging.</em></h2>
+    <p class="body-text fade-in fade-in-delay-2" style="margin-bottom: 4px; max-width: 100%; font-size: 14px;">
+      The mainstream debate is trapped in a binary: fear AI or worship it. But a richer landscape of pro-technology philosophies is developing — each offering different answers to what we're becoming.
+    </p>
+    <div class="heritage-grid fade-in fade-in-delay-3">
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: var(--accent);">Feminist · Collective</div>
+        <div class="heritage-name">Xenofeminism</div>
+        <div class="heritage-detail">Laboria Cuboniks (2015). Technology as liberation from biological determinism. Seize the tools — don't resist them. "Nothing should be accepted as fixed, permanent, or 'given.'" Linked to left-accelerationism and cyborg feminism (Haraway).</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: var(--accent);">Planetary · Berggruen Institute</div>
+        <div class="heritage-name">Planetary Computation</div>
+        <div class="heritage-detail">Benjamin Bratton's Antikythera program. AI as planetary-scale infrastructure — not a tool we use but a system we're embedded in. Rethinking intelligence, politics, and the human itself. Noema magazine as its publication arm. "Dystopia-aware techno-optimists."</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: var(--accent);">Silicon Valley</div>
+        <div class="heritage-name">e/acc — Effective Accelerationism</div>
+        <div class="heritage-detail">Guillaume Verdon (2022). Unrestricted AI progress as thermodynamic imperative — "the will of the universe." Climb the Kardashev scale. Anti-regulation, pro-AGI. Andreessen's Techno-Optimist Manifesto. The loudest voice in the room.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: var(--accent);">Political · Academic</div>
+        <div class="heritage-name">Left Accelerationism</div>
+        <div class="heritage-detail">Srnicek & Williams (2013). Repurpose capitalism's engines for liberation — automate labor, free humans. Technology isn't the enemy; who controls it is. The intellectual ancestor of xenofeminism. Mark Fisher's influence runs deep.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: var(--accent2);">Culture · Nevada/SF</div>
+        <div class="heritage-name">Burning Man Ethos</div>
+        <div class="heritage-detail">Born on Baker Beach, SF (1986). Radical self-expression, gifting, communal effort, participation. The culture that made Silicon Valley creative — and the proving ground where art and technology fuse. "We achieve being through doing."</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: var(--accent2);">Cyberpunk · Origin</div>
+        <div class="heritage-name">Cyborg Feminism</div>
+        <div class="heritage-detail">Donna Haraway's Cyborg Manifesto (1985). The original pro-tech feminism. The boundary between human and machine was always political, not natural. We've been cyborgs all along. Xenofeminism's mother.</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: var(--accent2);">Movement · Global</div>
+        <div class="heritage-name">Transhumanism</div>
+        <div class="heritage-detail">Humans should transcend biological limits through technology. From Max More's Extropians to Ray Kurzweil's Singularity. The philosophical wellspring behind both e/acc and longtermism. "We can be more than we are."</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era" style="color: #888;">Russian · Historical</div>
+        <div class="heritage-name">Cosmism</div>
+        <div class="heritage-detail">Nikolai Fyodorov (19th c.) → e/acc's spiritual ancestor. Technology as cosmic destiny — resurrect the dead, colonize the stars. A mystical, almost religious faith in technological transcendence. "Science as future magic."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE: THE OPPORTUNITY -->
+<section class="slide" data-label="The Opportunity">
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -200px; left: 30%;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>10</span> — The Opportunity</div>
+    <h2 class="fade-in fade-in-delay-1">Can San Francisco give birth to<br>a <em style="color:var(--accent2)">new science fiction</em><br>because we have front row seats?</h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <div class="triple fade-in fade-in-delay-3">
+      <div class="card">
+        <div class="card-title">The Heritage</div>
+        <div class="card-body">Philip K. Dick, Ursula Le Guin, Frank Herbert — all wrote from here. Lucasfilm, Pixar, ILM. The city has always been where futures are imagined and built.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">The Proximity</div>
+        <div class="card-body">We're inside the labs, the startups, the policy fights. The people building AI are our neighbors. No other creative community has this kind of access.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">The Community</div>
+        <div class="card-body">Machine Cinema has 20,000+ members across 30+ countries. Creatives already using AI, already telling stories. Not observers — participants.</div>
+      </div>
+    </div>
+    <p class="body-text fade-in fade-in-delay-4" style="margin-top: 32px;">
+      The next great science fiction won't come from the publishing world. It'll come from people living inside the transformation.
+    </p>
+  </div>
+</section>
+
+<!-- SLIDE: THE SERIES -->
+<section class="slide" data-label="The Series">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; left: -200px;"></div>
+  <div class="slide-inner" style="text-align: center;">
+    <div class="slide-number fade-in"><span>11</span> — Over to You</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(26px, 4vw, 48px);">We have six sessions.<br>What do <em style="color:var(--accent)">we</em> want to achieve together?</h2>
+    <div class="divider fade-in fade-in-delay-2" style="margin: 28px auto;"></div>
+    <p class="body-text fade-in fade-in-delay-3" style="margin: 0 auto; text-align: center; max-width: 660px;">
+      This salon series is ours to shape. Tonight is session one. We have five more. The question isn't what <em>I've</em> planned — it's what <em>we</em> want to build, explore, and create together over the next three months.
+    </p>
+    <div class="triple fade-in fade-in-delay-4" style="margin-top: 28px;">
+      <div class="card" style="text-align: left;">
+        <div class="card-title">Possible directions</div>
+        <div class="card-body">Reading groups. Guest speakers. Collaborative writing. Live readings. A manifesto. Field trips. Or something none of us have thought of yet.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">The constraint</div>
+        <div class="card-body">Whatever we do, it should only be possible <em>right now, right here</em> — from people with front row seats to the AI transformation.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">The output</div>
+        <div class="card-body">By session six, we should have something to show for it. What does that look like? Let's decide tonight.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE: THE QUESTIONS -->
+<section class="slide" data-label="Questions">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -100px; left: -100px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -200px; right: -100px;"></div>
+  <div class="slide-inner" style="text-align: center;">
+    <div class="slide-number fade-in" style="text-align: center;"><span>12</span> — Tonight's Questions</div>
+    <div style="max-width: 700px; margin: 0 auto; text-align: left;">
+      <div class="quote fade-in fade-in-delay-1" style="margin-bottom: 24px; font-size: clamp(14px, 1.8vw, 18px);">
+        What's the last piece of sci-fi that actually surprised you about AI — that imagined something you hadn't already seen in a product demo?
+      </div>
+      <div class="quote fade-in fade-in-delay-2" style="margin-bottom: 24px; font-size: clamp(14px, 1.8vw, 18px);">
+        Is the problem that sci-fi is too slow, or that reality has become too weird for narrative?
+      </div>
+      <div class="quote fade-in fade-in-delay-3" style="margin-bottom: 24px; font-size: clamp(14px, 1.8vw, 18px); border-color: var(--accent);">
+        If the people building AI are the ones living the most sci-fi lives right now, should they be the ones writing it?
+      </div>
+      <div class="quote fade-in fade-in-delay-4" style="font-size: clamp(14px, 1.8vw, 18px);">
+        What would a sci-fi story look like that could only be written <em>this month</em> — that would already feel dated in six months?
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE: CLOSING -->
+<section class="slide" data-label="Join">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -100px; right: -100px;"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; left: -100px;"></div>
+  <div class="slide-inner" style="text-align: center;">
+    <div class="slide-number fade-in" style="text-align: center;"><span>13</span> — Let's Begin</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(36px, 6vw, 72px);">Let's talk.</h2>
+    <div class="divider fade-in fade-in-delay-2" style="margin: 32px auto;"></div>
+    <div class="fade-in fade-in-delay-3">
+      <p style="font-family: var(--serif); font-size: 24px; margin-bottom: 8px;">THE SF/SF SALON</p>
+      <p style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--dim);">BIWEEKLY · BAY AREA · 2026</p>
+      <p style="font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 16px;">MACHINE CINEMA</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Generate nav dots
+  const slides = document.querySelectorAll('.slide');
+  const navContainer = document.getElementById('navDots');
+  const progressBar = document.getElementById('progressBar');
+  const keyHint = document.getElementById('keyHint');
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.innerHTML = `<span class="nav-label">${slide.dataset.label || ''}</span>`;
+    dot.addEventListener('click', () => {
+      slide.scrollIntoView({ behavior: 'smooth' });
+    });
+    navContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.nav-dot');
+
+  // Intersection Observer for fade-in and active dot
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Fade in elements
+        entry.target.querySelectorAll('.fade-in').forEach(el => {
+          el.classList.add('visible');
+        });
+
+        // Update active dot
+        const index = Array.from(slides).indexOf(entry.target);
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+
+        // Update progress bar
+        const progress = ((index + 1) / slides.length) * 100;
+        progressBar.style.width = progress + '%';
+
+        // Hide key hint after first scroll
+        if (index > 0) keyHint.style.opacity = '0';
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(slide => observer.observe(slide));
+
+  // Keyboard navigation
+  let currentSlide = 0;
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      currentSlide = Math.min(currentSlide + 1, slides.length - 1);
+      slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      currentSlide = Math.max(currentSlide - 1, 0);
+      slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  // Track current slide from scroll
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        currentSlide = Array.from(slides).indexOf(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(slide => scrollObserver.observe(slide));
+</script>
+
+</body>
+</html>

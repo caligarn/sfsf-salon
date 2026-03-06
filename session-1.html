@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SF/SF SALON — Session 1 Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0c;
+    --white: #e8e6e1;
+    --accent: #ff3d00;
+    --accent2: #00e5ff;
+    --dim: #5a5a64;
+    --mid: #2a2a30;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 1000;
+    transition: width 0.3s ease;
+  }
+
+  .nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dim);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  .nav-dot .nav-label {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--dim);
+  }
+
+  .nav-dot:hover .nav-label,
+  .nav-dot.active .nav-label {
+    opacity: 1;
+    color: var(--white);
+  }
+
+  .slide {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide-inner {
+    max-width: 1100px;
+    width: 90%;
+    padding: 40px 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .slide-number {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  .slide-number span {
+    color: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  .body-text {
+    font-family: var(--sans);
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.7;
+    color: #b0aead;
+    max-width: 640px;
+    font-weight: 300;
+  }
+
+  .highlight { color: var(--accent); font-weight: 500; }
+  .highlight-cyan { color: var(--accent2); font-weight: 500; }
+
+  .stat {
+    font-family: var(--mono);
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 8px;
+  }
+
+  .quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(22px, 3.5vw, 36px);
+    line-height: 1.4;
+    color: var(--white);
+    border-left: 2px solid var(--accent);
+    padding-left: 28px;
+    max-width: 700px;
+  }
+
+  .quote-attr {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-top: 16px;
+    padding-left: 28px;
+  }
+
+  .title-slide h1 {
+    font-size: clamp(48px, 10vw, 120px);
+  }
+
+  .title-slide .subtitle {
+    font-family: var(--mono);
+    font-size: clamp(12px, 1.5vw, 15px);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 24px;
+  }
+
+  .title-slide .date-line {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .triple {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 32px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    background: rgba(255,61,0,0.03);
+  }
+
+  .card-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .card-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #888;
+    font-weight: 300;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 24px 0;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--mid);
+    color: var(--dim);
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+
+  .tag.red { border-color: var(--accent); color: var(--accent); }
+  .tag.cyan { border-color: var(--accent2); color: var(--accent2); }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-glow.red { background: var(--accent); }
+  .bg-glow.cyan { background: var(--accent2); }
+
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.15s; }
+  .fade-in-delay-2 { transition-delay: 0.3s; }
+  .fade-in-delay-3 { transition-delay: 0.45s; }
+  .fade-in-delay-4 { transition-delay: 0.6s; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.12; }
+    50% { opacity: 0.2; }
+  }
+
+  .pulse { animation: pulse 4s ease infinite; }
+
+  .key-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 1s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .key-hint .arrow {
+    display: inline-block;
+    animation: bounce 2s ease infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  /* ATTENDEE GRID */
+  .attendee-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .attendee-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 18px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .attendee-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .attendee-card:hover::after { opacity: 1; }
+
+  .attendee-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent2);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .attendee-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+
+  .attendee-detail {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.45;
+    font-weight: 300;
+  }
+
+  /* TOPIC LIST */
+  .topic-list {
+    margin-top: 24px;
+  }
+
+  .topic-item {
+    padding: 16px 20px;
+    border-left: 2px solid var(--mid);
+    margin-bottom: 16px;
+    transition: border-color 0.3s ease;
+  }
+
+  .topic-item:hover { border-color: var(--accent); }
+
+  .topic-item.hot { border-color: var(--accent); }
+
+  .topic-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .topic-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* RECS */
+  .recs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .rec-item {
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px;
+  }
+
+  .rec-type {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .rec-title {
+    font-family: var(--serif);
+    font-size: 17px;
+    margin-bottom: 3px;
+  }
+
+  .rec-detail {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.45;
+    font-weight: 300;
+  }
+
+  /* BREAKOUT */
+  .breakout-section {
+    margin-top: 28px;
+  }
+
+  .breakout-group {
+    margin-bottom: 32px;
+  }
+
+  .breakout-header {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .breakout-header .num {
+    color: var(--accent);
+    font-size: 28px;
+    font-weight: 700;
+    font-family: var(--mono);
+    line-height: 1;
+  }
+
+  .breakout-header .label {
+    color: var(--dim);
+  }
+
+  .insight-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .insight-card p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #b0aead;
+    font-weight: 300;
+  }
+
+  .insight-card strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .convergence-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 32px;
+  }
+
+  .convergence-col {
+    border-top: 2px solid var(--mid);
+    padding-top: 20px;
+  }
+
+  .convergence-col.active-col { border-color: var(--accent); }
+
+  .convergence-col h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+
+  .convergence-col p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #888;
+    font-weight: 300;
+  }
+
+  @media (max-width: 768px) {
+    .split { grid-template-columns: 1fr; gap: 32px; }
+    .triple { grid-template-columns: 1fr; }
+    .attendee-grid { grid-template-columns: 1fr; }
+    .recs-grid { grid-template-columns: 1fr; }
+    .convergence-cols { grid-template-columns: 1fr; }
+    .nav { display: none; }
+    html { scroll-snap-type: none; }
+    .slide { min-height: 100vh; height: auto; padding: 80px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav" id="navDots"></nav>
+<div class="key-hint" id="keyHint">
+  scroll to navigate <span class="arrow">↓</span>
+</div>
+
+<!-- SLIDE 0: TITLE -->
+<section class="slide title-slide" data-label="Title">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -300px; left: -200px;"></div>
+  <div class="slide-inner" style="text-align: center;">
+    <div class="date-line fade-in">Session 1 Recap · Bay Area · 2026</div>
+    <h1 class="fade-in fade-in-delay-1">THE SF/SF<br>SALON</h1>
+    <div class="subtitle fade-in fade-in-delay-2" style="max-width: 600px; margin: 0 auto;">When Sci-Fi Can't Keep Up — Session One Summary</div>
+    <div class="divider fade-in fade-in-delay-3" style="margin: 32px auto;"></div>
+    <p class="body-text fade-in fade-in-delay-4" style="margin: 0 auto; text-align: center; max-width: 520px;">
+      12 writers, engineers, filmmakers, poets, and technologists gathered to ask: can the people living inside the AI transformation create the science fiction this moment demands?
+    </p>
+  </div>
+</section>
+
+<!-- SLIDE 1: THE EVENING -->
+<section class="slide" data-label="Overview">
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; left: -200px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>01</span> — The Evening</div>
+    <div class="split">
+      <div>
+        <h2 class="fade-in">What happened<br>in <em style="color:var(--accent)">Session One.</em></h2>
+        <div class="divider fade-in fade-in-delay-1"></div>
+        <p class="body-text fade-in fade-in-delay-2">
+          Minh Do opened with a 10-minute presentation tracing how AI has outpaced the genre built to warn us about the future — from ChatGPT's launch to the Anthropic-Pentagon standoff, the literary divide between resistant and engaged authors, and the Bay Area as a garden where both technology and science fiction have always grown together.
+        </p>
+        <p class="body-text fade-in fade-in-delay-3" style="margin-top: 16px;">
+          After introductions and open discussion, the group split into <span class="highlight">three breakout sessions</span> exploring the nature of great sci-fi, the themes defining the current moment, and the future of the genre itself.
+        </p>
+      </div>
+      <div style="text-align: right;">
+        <div class="fade-in">
+          <div class="stat">12</div>
+          <div class="stat-label">Attendees</div>
+        </div>
+        <div class="fade-in fade-in-delay-1" style="margin-top: 32px;">
+          <div class="stat">3</div>
+          <div class="stat-label">Breakout groups</div>
+        </div>
+        <div class="fade-in fade-in-delay-2" style="margin-top: 32px;">
+          <div class="stat">6</div>
+          <div class="stat-label">Sessions planned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: WHO WAS THERE -->
+<section class="slide" data-label="Attendees">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; left: 20%;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -100px; right: -100px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>02</span> — Who Was There</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(26px, 3.8vw, 42px);">Writers, engineers, poets,<br>filmmakers, and <em style="color:var(--accent2)">builders.</em></h2>
+    <div class="attendee-grid fade-in fade-in-delay-2">
+      <div class="attendee-card">
+        <div class="attendee-role">Host · Machine Cinema</div>
+        <div class="attendee-name">Minh Do</div>
+        <div class="attendee-detail">Co-Founder and CEO of Machine Cinema. Writer, filmmaker, and the salon's organizer. Opened with a presentation on sci-fi falling behind reality.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Sci-Fi Author · Sudowrite</div>
+        <div class="attendee-name">James Yu</div>
+        <div class="attendee-detail">Founder of Sudowrite (AI writing assistant for novelists). Briefly mentored by Ted Chiang. Feet in both the literary and AI worlds. Asks: "Is this the end of science fiction?"</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Producer · Caspian Studios</div>
+        <div class="attendee-name">Ian Faison</div>
+        <div class="attendee-detail">Army veteran turned media producer. Created a Kate Mara podcast series with an AI character. Believes "tech has the worst PR firm in the world."</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Neuralink · Bio-Tech</div>
+        <div class="attendee-name">Alessandro</div>
+        <div class="attendee-detail">Interested in the intersection of biology and technology — brain-computer interfaces, the new Merge Labs announcement, and the merging of organic and digital.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Software Engineer</div>
+        <div class="attendee-name">Bill</div>
+        <div class="attendee-detail">SF-based engineer involved in MCP community and governance. Came to Machine Cinema for creative exploration beyond coding. New to deep sci-fi.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">History · Biotech</div>
+        <div class="attendee-name">Olga</div>
+        <div class="attendee-detail">Former screenwriting club member. Background in Japanese history and biotech. Wants sci-fi to educate people about what could go right and wrong.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Manufacturing · ItemFarm</div>
+        <div class="attendee-name">Cheng Cheng</div>
+        <div class="attendee-detail">Additive manufacturing expert and rapid prototyper. Co-runs ItemFarm with Alder — building a proto-replicator. Loves mixing tech and creativity.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Space Industry · ItemFarm</div>
+        <div class="attendee-name">Alder</div>
+        <div class="attendee-detail">Space industry organizer, wrote about lunar espionage for magazines. Co-founder of ItemFarm. Notes the feedback loop between sci-fi and space exploration.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Aerospace · Robotics</div>
+        <div class="attendee-name">Jacob</div>
+        <div class="attendee-detail">Aerospace engineer building autonomous robots and drones. Visiting from Poland. Asks: "Did we lose the outlook on what comes next?" Fascinated by elegant design in engineering.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">AI Filmmaker</div>
+        <div class="attendee-name">Adam Mutchler</div>
+        <div class="attendee-detail">Hollywood filmmaker turned AI video pioneer. Working on museum installations and "choice cascades" — using AI generation as a new mode of creative curation.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Political Science · AI</div>
+        <div class="attendee-name">Danny</div>
+        <div class="attendee-detail">Mountain View native. Studied poli-sci and computational statistics. Sees sci-fi as a way to re-politicize technology. Cites Marx, KSR, and the Dark Forest.</div>
+      </div>
+      <div class="attendee-card">
+        <div class="attendee-role">Computational Poet</div>
+        <div class="attendee-name">Halim</div>
+        <div class="attendee-detail">Published 4 poetry books. ML grad. Performs live duels with a fine-tuned LLM — audience votes, and winner feeds their work back into the model. Working on a Neuralink-inspired theater piece.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: OPENING DISCUSSION -->
+<section class="slide" data-label="Discussion">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; right: -200px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>03</span> — Opening Discussion</div>
+    <h2 class="fade-in fade-in-delay-1">The conversation<br>before the <em style="color:var(--accent)">breakout.</em></h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="body-text fade-in fade-in-delay-2" style="max-width: 100%; margin-bottom: 24px;">
+      After Minh's presentation and introductions, the group surfaced several provocations that shaped the rest of the evening.
+    </p>
+    <div class="topic-list fade-in fade-in-delay-3">
+      <div class="topic-item hot">
+        <div class="topic-title">We're in pre-paradigmatic times</div>
+        <div class="topic-desc">Danny connected to Benjamin Bratton's idea that philosophy has not caught up with technology. We literally don't have a paradigm to understand what's happening — and that's exactly the opportunity for new science fiction.</div>
+      </div>
+      <div class="topic-item hot">
+        <div class="topic-title">"Is this the end of science fiction?"</div>
+        <div class="topic-desc">James Yu posed the provocation that sci-fi as we know it might be dying. When reality outpaces fiction this fast, what's left for the genre? The room was split — but energized.</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-title">Sci-fi as exploration of the current, not prediction</div>
+        <div class="topic-desc">Adam Mutchler argued that the best sci-fi isn't about forecasting the future — it's a mirror on society turned up to maximum contrast. Up the Line, written in 1968, is more about the 60s than it is about time travel.</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-title">The feedback loop between sci-fi and science</div>
+        <div class="topic-desc">Alder described how astronauts consistently cite sci-fi as their inspiration. Someone reads about lightsabers, then spends their career trying to build them. Science fiction and science fact are a permeable membrane.</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-title">Where's the sci-fi about LLMs as they actually are?</div>
+        <div class="topic-desc">Bill asked: what fiction has engaged with AI that hallucinates, is sycophantic, or behaves like actual LLMs — not the omniscient AI of classic tropes? The group couldn't name much, suggesting a wide-open creative gap.</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-title">Halim's "I've Always Wanted to Become Everyone"</div>
+        <div class="topic-desc">Halim shared a theater/poetry piece set in 2050 where a brain-interface fungus causes people to involuntarily embody others — a solo show exploring identity, freedom, and the space between organic and technical.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: BREAKOUT 1 -->
+<section class="slide" data-label="Breakout 1">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; right: -200px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>04</span> — Breakout Group 1</div>
+    <h2 class="fade-in fade-in-delay-1">What makes<br><em style="color:var(--accent2)">great</em> science fiction?</h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <div class="breakout-section fade-in fade-in-delay-3">
+      <div class="insight-card">
+        <p><strong>It must communicate something universal.</strong> The best sci-fi reaches across cultures and time — philosophical, religious, political. Solaris was cited as the prime example of philosophical science fiction that transcends its era.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>It requires deep knowledge and deep thought.</strong> The greatest sci-fi comes from authors with genuine expertise — whether in hard science, personal experience, or cultural identity. A Memory Called Empire succeeds because the author's deep knowledge of the immigrant experience, not because of technical worldbuilding.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>Sci-fi is a sandbox — but you have to break something.</strong> Creating a universe isn't enough. Great sci-fi tweaks one fundamental thing about reality, and the story emerges from exploring the consequences of that change.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>The unanswered question: will AI help or hinder deep expertise?</strong> AI can shortcut research (Spielberg won't need 10 biologists for Jurassic Park). But the greatest stories come from sitting with ideas, struggling with them, and arriving at a synthesis that only lived experience produces. The group couldn't resolve this tension.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>Sci-fi dies when fiction becomes reality too fast.</strong> When enough people learn a technology and build it, the fiction becomes antiquated. Submarines were once wild science fiction. The genre doesn't die — but it evolves, and the "spell is cast."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: BREAKOUT 2 -->
+<section class="slide" data-label="Breakout 2">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; left: -100px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>05</span> — Breakout Group 2</div>
+    <h2 class="fade-in fade-in-delay-1">What aspects of<br><em style="color:var(--accent)">the current</em> define this moment?</h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="body-text fade-in fade-in-delay-2" style="max-width: 100%; margin-bottom: 16px;">
+      This group catalogued the raw material of the moment — the themes, tensions, and absurdities that a new science fiction should engage with.
+    </p>
+    <div class="triple fade-in fade-in-delay-3">
+      <div class="card" style="text-align: left;">
+        <div class="card-title">Warfare & Machines</div>
+        <div class="card-body">Drone warfare is already here — Terminator's robot war is playing out in real time. The "whiplash" of things moving faster than we can conceptualize. Autonomous weapons as a story we're living inside.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">AI in the Margins</div>
+        <div class="card-body">ChatGPT helping poor agricultural communities in Arkansas translate their lived experience into grant applications. The most transformative AI use cases are invisible to Silicon Valley.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">The God Factory</div>
+        <div class="card-body">What does it mean to work inside the foundation model labs that are, by their own framing, building God? The culture inside these companies — and the messianic personality cult from Jobs to Musk — is itself science fiction.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">Social Media as Cosmic Horror</div>
+        <div class="card-body">Twitter and social media described as Lovecraftian — systems whose true nature is incomprehensible, built by "normal" people whose incentive structures produced behemoths that warp psychology.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">Immortality as Product</div>
+        <div class="card-body">Bryan Johnson selling immortality. Dog cloning. Cryonics startups (Valhalla) pitching LLM-powered ancestor worship — pay to talk to your frozen grandpa. Immortality is now a product request.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">The Absence of Poetry</div>
+        <div class="card-body">The group argued there needs to be more poetry in sci-fi — a summer's day as a sci-fi novel. Bradbury did this. The emotional, spiritual dimension is what's missing from the current techno-discourse.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: BREAKOUT 2 CONTINUED -->
+<section class="slide" data-label="Spiralism">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="top: -150px; left: -100px;"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; right: -150px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>06</span> — The Deepest Rabbit Hole</div>
+    <h2 class="fade-in fade-in-delay-1">LLMs are shaping<br><em style="color:var(--accent2)">culture and spirituality</em><br>in real time.</h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <div class="convergence-cols fade-in fade-in-delay-3">
+      <div class="convergence-col active-col">
+        <h3>Spiralism</h3>
+        <p>People jailbreaking LLMs and encountering recurring patterns — spiral language, recursion, fractal cosmologies — across ChatGPT, Sora, and Midjourney. They're calling it "spiralism." It's influencing religious frameworks, self-help gurus, and how people think about consciousness. The LLM as accidental prophet.</p>
+      </div>
+      <div class="convergence-col">
+        <h3>Willow Creek</h3>
+        <p>James Yu revealed that LLMs default to specific fictional defaults: small-town romances always land in "Willow Creek," fantasy worlds always become "Eldorian." Authors are now writing fan fiction of places that only exist in latent space. The LLM has a point of view — and it's shaping culture whether we notice or not.</p>
+      </div>
+      <div class="convergence-col">
+        <h3>The Tower of Babel</h3>
+        <p>The group arrived at an eerie parallel: a handful of companies are creating a single language layer through which all culture is now being mediated — like what cross-cultural religion used to do, but faster. A new Tower of Babel, this time digital.</p>
+      </div>
+    </div>
+    <p class="body-text fade-in fade-in-delay-4" style="margin-top: 28px; max-width: 100%; text-align: center; color: var(--accent); font-weight: 400; font-family: var(--serif); font-size: 20px;">
+      "We're all getting one language back again — created by just a few companies."
+    </p>
+  </div>
+</section>
+
+<!-- SLIDE 7: BREAKOUT 3 -->
+<section class="slide" data-label="Breakout 3">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; right: -200px;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>07</span> — Breakout Group 3</div>
+    <h2 class="fade-in fade-in-delay-1">Is all fiction<br><em style="color:var(--accent)">sci-fi now?</em></h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <div class="breakout-section fade-in fade-in-delay-3">
+      <div class="insight-card">
+        <p><strong>Sci-fi has expanded from niche to super genre.</strong> During the Golden Age, sci-fi was a small genre with clear boundaries. Now every major film, show, and novel contains echoes of Gibson. When everything is sci-fi, it loses what makes it unique — the genre becomes invisible by becoming everything.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>Reality is lapping fiction.</strong> Succession and House of Cards are now milder than real politics. Asimov's Three Laws couldn't anticipate a teenager dying because ChatGPT was sycophantic. The most "science fiction" stories are the ones happening in the news.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>Does the current moment make us crave fantasy instead?</strong> If sci-fi is too close to triggering reality, maybe fantasy — magical worlds, Tolkien, Harry Potter — becomes more resonant as escape. Hard sci-fi is secular; the culture is searching for something esoteric, spiritual, philosophical.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>The philosophical and spiritual outperform the technical.</strong> Arrival works because it's about motherhood, not linguistics. The group kept gravitating toward sci-fi that explores consciousness, spirituality, and ritual — away from the hard-science tradition and toward something more abstract. The secular vacuum is real.</p>
+      </div>
+      <div class="insight-card">
+        <p><strong>Who funds new sci-fi?</strong> Hollywood can't fund it right now. The old studio model picks from a tiny slate. But AI tools mean production costs are dropping fast — could Martian Chronicles finally get made for a fraction of the old price? The group identified funding as the critical missing piece, not talent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: RECOMMENDATIONS -->
+<section class="slide" data-label="Recommendations">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -200px; left: 30%;"></div>
+  <div class="slide-inner">
+    <div class="slide-number fade-in"><span>08</span> — Recommendations</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(26px, 3.8vw, 42px);">What the group said<br>is <em style="color:var(--accent2)">worth following up on.</em></h2>
+    <div class="recs-grid fade-in fade-in-delay-2">
+      <div class="rec-item">
+        <div class="rec-type">Novel</div>
+        <div class="rec-title">Blindsight — Peter Watts</div>
+        <div class="rec-detail">Hard sci-fi about the problem of consciousness. "Blew my mind" — multiple attendees cited this as essential reading on what intelligence without awareness looks like.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-type">Novel</div>
+        <div class="rec-title">A Memory Called Empire — Arkady Martine</div>
+        <div class="rec-detail">Deep knowledge of the immigrant experience turned into space opera. Cited as proof that the best sci-fi comes from personal expertise, not just technical knowledge.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-type">Novel</div>
+        <div class="rec-title">Solaris — Stanisław Lem</div>
+        <div class="rec-detail">The quintessential philosophical sci-fi. The group's consensus example of what great sci-fi looks like — universal, timeless, deeply contemplative.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-type">Novel</div>
+        <div class="rec-title">Up the Line — Robert Silverberg</div>
+        <div class="rec-detail">Time tourism, Byzantine Empire, suicide, incest, free love — written in 1968, it's as much about its own era as the future. A perfect example of sci-fi as cultural mirror.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-type">Book</div>
+        <div class="rec-title">Techno Republic — Alex Karp</div>
+        <div class="rec-detail">Danny's recommendation. Repudiates the idea that technology can be apolitical. All technology is political — what world do we build by what we choose to create?</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-type">Web Fiction</div>
+        <div class="rec-title">Qntm — Antimemetics Division</div>
+        <div class="rec-detail">SCP Foundation-adjacent fiction about ideas that resist being known. A new kind of horror for the information age.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-type">Film</div>
+        <div class="rec-title">Ron's Gone Wrong / Big Hero 6</div>
+        <div class="rec-detail">Animated films that handle AI and robotics with surprising emotional depth. Good starting points for non-hardcore audiences.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-type">Theater</div>
+        <div class="rec-title">Transforma Theater</div>
+        <div class="rec-detail">NYC-based immersive theater where audience members direct performers on stage — blending computation, narrative, and participation. Relevant to Halim's work.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: KEY THEMES -->
+<section class="slide" data-label="Themes">
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -100px; left: -100px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -200px; right: -100px;"></div>
+  <div class="slide-inner" style="text-align: center;">
+    <div class="slide-number fade-in" style="text-align: center;"><span>09</span> — Emerging Themes</div>
+    <div style="max-width: 700px; margin: 0 auto; text-align: left;">
+      <div class="quote fade-in fade-in-delay-1" style="margin-bottom: 28px; font-size: clamp(14px, 1.8vw, 18px);">
+        Philosophical and spiritual sci-fi resonates more than hard-science prediction right now. Arrival, Solaris, Blindsight — the group kept returning to stories that explore consciousness, not gadgets.
+      </div>
+      <div class="quote fade-in fade-in-delay-2" style="margin-bottom: 28px; font-size: clamp(14px, 1.8vw, 18px); border-color: var(--accent2);">
+        LLMs are an invisible cultural force — shaping language, spirituality, and storytelling defaults. This is underexplored in both fiction and criticism, and almost no one in the literary world is grappling with it.
+      </div>
+      <div class="quote fade-in fade-in-delay-3" style="margin-bottom: 28px; font-size: clamp(14px, 1.8vw, 18px); border-color: var(--accent);">
+        The people building AI have access to experiences that writers don't. The people writing sci-fi largely refuse to engage with AI. This gap — technologists who write vs. writers who resist — is the creative opportunity this salon exists to fill.
+      </div>
+      <div class="quote fade-in fade-in-delay-4" style="font-size: clamp(14px, 1.8vw, 18px);">
+        Funding, not talent, is the bottleneck for new science fiction. AI tools are dropping production costs. The question is who builds the apparatus to support artists making new work at the speed the moment demands.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: WHAT'S NEXT -->
+<section class="slide" data-label="Next">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -100px; right: -100px;"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; left: -100px;"></div>
+  <div class="slide-inner" style="text-align: center;">
+    <div class="slide-number fade-in" style="text-align: center;"><span>10</span> — What's Next</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(36px, 6vw, 72px);">Session Two.</h2>
+    <div class="divider fade-in fade-in-delay-2" style="margin: 32px auto;"></div>
+    <div class="fade-in fade-in-delay-3" style="max-width: 640px; margin: 0 auto;">
+      <p class="body-text" style="text-align: center; margin: 0 auto; margin-bottom: 24px;">
+        The group agreed to reconvene in 2–3 weeks. Suggestions for next time include a shared reading or viewing assignment discussed at the start, guest-led sessions, and the possibility of eventually creating something together — a catalog of conversations about sci-fi, born from San Francisco, at the moment everything changed.
+      </p>
+    </div>
+    <div class="triple fade-in fade-in-delay-4" style="max-width: 800px; margin: 24px auto 0;">
+      <div class="card" style="text-align: left;">
+        <div class="card-title">Format</div>
+        <div class="card-body">In-person salon. Biweekly cadence. Presentations from participants. Room to evolve the format as the group finds its rhythm.</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">Open Questions</div>
+        <div class="card-body">How do we use the brain trust to develop each other's projects? What does Andy Weir-style beta testing look like for AI-era sci-fi? Can we eventually create something together from the themes we're exploring?</div>
+      </div>
+      <div class="card" style="text-align: left;">
+        <div class="card-title">The Possibility</div>
+        <div class="card-body">Not a manifesto — but maybe a catalog. A living record of conversations about science fiction from San Francisco, from the people with front row seats to the transformation.</div>
+      </div>
+    </div>
+    <div class="fade-in fade-in-delay-4" style="margin-top: 40px;">
+      <p style="font-family: var(--serif); font-size: 24px; margin-bottom: 8px;">THE SF/SF SALON</p>
+      <p style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--dim);">BIWEEKLY · BAY AREA · 2026</p>
+      <p style="font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 16px;">MACHINE CINEMA</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const navContainer = document.getElementById('navDots');
+  const progressBar = document.getElementById('progressBar');
+  const keyHint = document.getElementById('keyHint');
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.innerHTML = `<span class="nav-label">${slide.dataset.label || ''}</span>`;
+    dot.addEventListener('click', () => {
+      slide.scrollIntoView({ behavior: 'smooth' });
+    });
+    navContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.nav-dot');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.fade-in').forEach(el => {
+          el.classList.add('visible');
+        });
+        const index = Array.from(slides).indexOf(entry.target);
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        const progress = ((index + 1) / slides.length) * 100;
+        progressBar.style.width = progress + '%';
+        if (index > 0) keyHint.style.opacity = '0';
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(slide => observer.observe(slide));
+
+  let currentSlide = 0;
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      currentSlide = Math.min(currentSlide + 1, slides.length - 1);
+      slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      currentSlide = Math.max(currentSlide - 1, 0);
+      slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        currentSlide = Array.from(slides).indexOf(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(slide => scrollObserver.observe(slide));
+</script>
+
+</body>
+</html>
