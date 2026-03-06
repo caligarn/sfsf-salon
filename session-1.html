@@ -34,6 +34,49 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* SITE NAV */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,12,0.95), transparent);
+  }
+
+  .site-nav .logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .site-nav .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
   .progress-bar {
     position: fixed;
     top: 0;
@@ -559,6 +602,8 @@
   }
 
   @media (max-width: 768px) {
+    .site-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
     .split { grid-template-columns: 1fr; gap: 32px; }
     .triple { grid-template-columns: 1fr; }
     .attendee-grid { grid-template-columns: 1fr; }
@@ -571,6 +616,17 @@
 </style>
 </head>
 <body>
+
+<!-- SITE NAV -->
+<nav class="site-nav">
+  <a href="/" class="logo">SF<span>/</span>SF Salon</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="the-salon.html">Presentation</a></li>
+    <li><a href="session-1.html">Session 1</a></li>
+    <li><a href="feedback.html">Feedback</a></li>
+  </ul>
+</nav>
 
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav" id="navDots"></nav>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SF/SF SALON — First Session Feedback</title>
+<meta name="description" content="Feedback from participants of the first SF/SF Salon gathering — a biweekly salon in San Francisco exploring science fiction in the age of AI.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0c;
+    --white: #e8e6e1;
+    --accent: #ff3d00;
+    --accent2: #00e5ff;
+    --dim: #5a5a64;
+    --mid: #2a2a30;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,12,0.95), transparent);
+  }
+
+  .site-nav .logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .site-nav .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 48px 60px;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-glow.red { background: var(--accent); }
+  .bg-glow.cyan { background: var(--accent2); }
+
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.12; }
+    50% { opacity: 0.2; }
+  }
+
+  .pulse { animation: pulse 4s ease infinite; }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--accent2);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 24px auto;
+  }
+
+  .hero-body {
+    font-size: 16px;
+    color: #b0aead;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* SECTIONS */
+  .feedback-section {
+    position: relative;
+    padding: 80px 48px;
+    overflow: hidden;
+  }
+
+  .feedback-section:nth-child(even) {
+    background: rgba(255,255,255,0.01);
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  .section-label span {
+    color: var(--accent);
+    margin-right: 4px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .body-text {
+    font-size: 16px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* FEEDBACK CARDS */
+  .feedback-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .feedback-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--mid);
+    border-radius: 8px;
+    padding: 28px 32px;
+    transition: border-color 0.3s ease;
+  }
+
+  .feedback-card:hover {
+    border-color: var(--dim);
+  }
+
+  .feedback-card p {
+    font-size: 15px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .feedback-card .bullet-list {
+    list-style: none;
+    margin-top: 12px;
+  }
+
+  .feedback-card .bullet-list li {
+    font-size: 15px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  .feedback-card .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .quote-block {
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+    margin: 16px 0;
+    font-family: var(--serif);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.6;
+  }
+
+  /* TWO COLUMN GRID */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  /* THREE COLUMN GRID */
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .card-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  /* SENTIMENT SECTION */
+  .sentiment-section {
+    position: relative;
+    padding: 100px 48px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .sentiment-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .sentiment-tags {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+
+  .sentiment-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 8px 20px;
+    border: 1px solid var(--mid);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--mid);
+  }
+
+  footer .logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  footer .logo span { color: var(--accent); }
+
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    text-align: right;
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.15s; }
+  .fade-in-delay-2 { transition-delay: 0.3s; }
+  .fade-in-delay-3 { transition-delay: 0.45s; }
+  .fade-in-delay-4 { transition-delay: 0.6s; }
+
+  @media (max-width: 768px) {
+    .site-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 40px; }
+    .feedback-section { padding: 60px 24px; }
+    .sentiment-section { padding: 60px 24px; }
+    .two-col { grid-template-columns: 1fr; }
+    .three-col { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    footer .footer-meta { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="/" class="logo">SF<span>/</span>SF Salon</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="the-salon.html">Presentation</a></li>
+    <li><a href="session-1.html">Session 1</a></li>
+    <li><a href="feedback.html">Feedback</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -300px; left: -200px;"></div>
+  <div class="hero-inner">
+    <div class="eyebrow fade-in">Session 1 · Post-Event Survey · 2026</div>
+    <h1 class="fade-in fade-in-delay-1">First Session<br>Feedback</h1>
+    <div class="hero-sub fade-in fade-in-delay-2">From the Participants</div>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="hero-body fade-in fade-in-delay-3">
+      After the first gathering of the SF/SF Salon, we collected feedback from participants. Here's what they said — and what it means for the sessions ahead.
+    </p>
+  </div>
+</section>
+
+<!-- OVERALL RECEPTION -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>01</span> — Overall Reception</div>
+    <h2 class="fade-in fade-in-delay-1">Strong positive response<br>to the <em style="color:var(--accent)">first gathering.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <div class="feedback-grid fade-in fade-in-delay-2">
+      <div class="feedback-card">
+        <p>Several participants described the event as energizing and intellectually rich. Many people appreciated the mix of disciplines and perspectives.</p>
+        <div class="quote-block">"Philosophers and engineers; niche literature readers and fans of pop culture; writers and readers."</div>
+      </div>
+      <div class="feedback-card">
+        <p>The small size was widely seen as a strength. Participants liked the discussion format and the cap around ~20 people.</p>
+      </div>
+      <div class="feedback-card">
+        <ul class="bullet-list">
+          <li>Multiple people suggested a more tight format with more time for breakout groups and smaller groups</li>
+          <li>Multiple people suggested the longer-term output of this group should be to create something</li>
+          <li>Multiple people wanted some reading material, so we will have a short story to read</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUP COMPOSITION -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>02</span> — Group Composition &amp; Community</div>
+    <h2 class="fade-in fade-in-delay-1">The right people<br>in the <em style="color:var(--accent2)">right room.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <div class="feedback-grid fade-in fade-in-delay-2">
+      <div class="feedback-card">
+        <p>The diversity of backgrounds was repeatedly mentioned as a core strength of the salon. People valued learning about each attendee's work and perspective.</p>
+      </div>
+      <div class="feedback-card">
+        <p>There is interest in the salon becoming a nucleus for a larger science fiction community in San Francisco.</p>
+        <ul class="bullet-list">
+          <li>One suggestion was framing the broader mission as making San Francisco an epicenter for science fiction again</li>
+        </ul>
+      </div>
+      <div class="feedback-card">
+        <p>Some attendees are looking for collaboration opportunities.</p>
+        <div class="quote-block">"I am personally looking for some of my existing ideas to get shaped here, and maybe even team up with like-minded people."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRUCTURE AND FACILITATION -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>03</span> — Structure &amp; Facilitation</div>
+    <h2 class="fade-in fade-in-delay-1">A little more<br><em style="color:var(--accent)">structure</em> next time.</h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <div class="feedback-grid fade-in fade-in-delay-2">
+      <div class="feedback-card">
+        <p>The most common feedback was the need for slightly more structure. Long open discussion sometimes allowed a few participants to dominate the conversation.</p>
+        <div class="quote-block">"I kinda felt like a captive audience while certain people rambled."</div>
+      </div>
+      <div class="feedback-card">
+        <p>The event ran longer than expected, which some participants found tiring. The session scheduled for one hour went over two hours.</p>
+      </div>
+      <div class="feedback-card">
+        <card-title class="card-title">Suggestions</card-title>
+        <ul class="bullet-list">
+          <li>Clear time blocks for discussion</li>
+          <li>Light moderation to prevent "mic-holding"</li>
+          <li>A more defined beginning and ending to the structured portion</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMAT IMPROVEMENTS -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>04</span> — Possible Format Improvements</div>
+    <h2 class="fade-in fade-in-delay-1">Evolving the <em style="color:var(--accent2)">format.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <div class="two-col fade-in fade-in-delay-2">
+      <div class="feedback-card">
+        <div class="card-title">Two-Phase Evening</div>
+        <p>Several attendees suggested splitting the evening into two phases:</p>
+        <ul class="bullet-list">
+          <li>Structured discussion around a topic or reading</li>
+          <li>Open social / mingle time afterward so people can leave without awkwardness</li>
+        </ul>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Book-Club Component</div>
+        <p>A book-club style component was suggested — shared reading or watching material beforehand.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Breakout Groups</div>
+        <p>Breakout groups were generally appreciated.</p>
+        <div class="quote-block">"The breakouts were great; the big group discussions can be a bit chaotic."</div>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Topic Planning</div>
+        <p>Some people suggested planning topics ahead of time — vote on topics and dedicate future sessions to the selected themes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATIVE DIRECTION -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>05</span> — Creative Direction</div>
+    <h2 class="fade-in fade-in-delay-1">Beyond discussion.<br>Into <em style="color:var(--accent)">creation.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <p class="body-text fade-in fade-in-delay-2">Multiple participants encouraged evolving the salon beyond discussion into creative collaboration.</p>
+    <div class="quote-block fade-in fade-in-delay-2" style="margin: 24px 0;">"How do we make it a creative experience instead of just another sci-fi book/movie club?"</div>
+    <div class="three-col fade-in fade-in-delay-3">
+      <div class="feedback-card">
+        <div class="card-title">Workshops</div>
+        <p>Sessions where participants create something together.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Works-in-Progress</div>
+        <p>Sessions where people present works-in-progress and receive feedback.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Storyteller Sessions</div>
+        <p>Dedicated sessions helping a specific storyteller develop their project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPES OF SESSIONS -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>06</span> — Types of Sessions Proposed</div>
+    <h2 class="fade-in fade-in-delay-1">A rotating <em style="color:var(--accent2)">format.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <p class="body-text fade-in fade-in-delay-2">One attendee suggested rotating between three types of gatherings:</p>
+    <div class="three-col fade-in fade-in-delay-3">
+      <div class="feedback-card">
+        <div class="card-title">Broad Discussions</div>
+        <p>Open discussions about science fiction and culture.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Deep Dives</div>
+        <p>Highly focused deep dives into a single topic.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Story Development</div>
+        <p>Sessions centered on helping a specific storyteller develop a story or project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LONG-TERM VISION -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>07</span> — Long-Term Vision &amp; Impact</div>
+    <h2 class="fade-in fade-in-delay-1">What is the <em style="color:var(--accent)">lasting impact?</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <p class="body-text fade-in fade-in-delay-2">Several people expressed curiosity about the long-term goal of the salon.</p>
+    <div class="quote-block fade-in fade-in-delay-2" style="margin: 24px 0;">"What is the lasting impact you're aiming for?"</div>
+    <div class="two-col fade-in fade-in-delay-3">
+      <div class="feedback-card">
+        <div class="card-title">Testing Ground</div>
+        <p>Turning the group into a testing ground for science fiction ideas and prototypes.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Building Connections</div>
+        <p>Building connections between storytellers, technologists, and investors.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Supporting Projects</div>
+        <p>Supporting new science-fiction projects and funding pathways.</p>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Influencing Stories</div>
+        <p>Influencing stories currently in development.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENUE AND LOGISTICS -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>08</span> — Venue &amp; Logistics</div>
+    <h2 class="fade-in fade-in-delay-1">The location: <em style="color:var(--accent2)">perfect.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <div class="two-col fade-in fade-in-delay-2">
+      <div class="feedback-card">
+        <p>Venue and group size received strong positive feedback.</p>
+        <div class="quote-block">"The location: perfect."</div>
+        <div class="quote-block">"The number of people: excellent."</div>
+      </div>
+      <div class="feedback-card">
+        <div class="card-title">Suggestion</div>
+        <p>Experimenting with venues tied to themes — for example, selecting venues that match a topic like biotechnology or futurism.</p>
+        <p style="margin-top: 12px;">The only logistical complaint mentioned was the general challenge of external locations and nightlife noise in San Francisco.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS OF INTEREST -->
+<section class="feedback-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>09</span> — Topics of Interest</div>
+    <h2 class="fade-in fade-in-delay-1">What to explore <em style="color:var(--accent)">next.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <div class="two-col fade-in fade-in-delay-2">
+      <div class="feedback-card">
+        <ul class="bullet-list">
+          <li>Funding and investment in science fiction</li>
+          <li>Bringing more science-fiction storytellers to San Francisco</li>
+        </ul>
+      </div>
+      <div class="feedback-card">
+        <ul class="bullet-list">
+          <li>Influencing current science fiction in production</li>
+          <li>Exploring intersections between technology, culture, and storytelling</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY SENTIMENT -->
+<section class="sentiment-section">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="bottom: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="top: -200px; left: -200px;"></div>
+  <div class="sentiment-inner">
+    <div class="section-label fade-in"><span>10</span> — Summary Sentiment</div>
+    <h2 class="fade-in fade-in-delay-1" style="font-size: clamp(28px, 5vw, 56px);">The right crowd for<br><em style="color:var(--accent)">something cool.</em></h2>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="body-text fade-in fade-in-delay-2" style="text-align: center; margin: 0 auto;">
+      Participants consistently emphasized that the group already has the right ingredients.
+    </p>
+    <div class="sentiment-tags fade-in fade-in-delay-3">
+      <div class="sentiment-tag">High-Intelligence Crowd</div>
+      <div class="sentiment-tag">Passionate Discussion</div>
+      <div class="sentiment-tag">Cross-Disciplinary Mix</div>
+    </div>
+    <div class="quote-block fade-in fade-in-delay-4" style="text-align: center; border-left: none; margin-top: 40px; font-size: clamp(20px, 3vw, 28px);">
+      "You definitely have the right crowd for something cool."
+    </div>
+    <div class="fade-in fade-in-delay-4" style="margin-top: 48px;">
+      <p style="font-family: var(--serif); font-size: 24px; margin-bottom: 8px;">THE SF/SF SALON</p>
+      <p style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--dim);">BIWEEKLY · BAY AREA · 2026</p>
+      <p style="font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 16px;">MACHINE CINEMA</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">SF<span>/</span>SF Salon · Machine Cinema</div>
+  <div class="footer-meta">
+    <div>Biweekly · Bay Area · 2026</div>
+    <div style="margin-top:4px;"><a href="the-salon.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Presentation</a> · <a href="session-1.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Session 1 Recap</a> · <a href="/" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Home</a></div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
