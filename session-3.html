@@ -469,6 +469,214 @@
   .fade-in-delay-3 { transition-delay: 0.45s; }
   .fade-in-delay-4 { transition-delay: 0.6s; }
 
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .modal-overlay.active {
+    pointer-events: all;
+    visibility: visible;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,12,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .modal-overlay.active .modal-backdrop {
+    opacity: 1;
+  }
+
+  .modal {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 100%;
+    max-width: 560px;
+    background: #141418;
+    border: 1px solid var(--mid);
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+    padding: 48px 40px 40px;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .modal-overlay.active .modal {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    color: var(--dim);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: color 0.3s, background 0.3s;
+  }
+
+  .modal-close:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .modal h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .modal .modal-desc {
+    font-size: 14px;
+    color: var(--dim);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .modal-field {
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .modal-overlay.active .modal-field { opacity: 1; transform: translateY(0); }
+  .modal-overlay.active .modal-field:nth-child(1) { transition-delay: 0.15s; }
+  .modal-overlay.active .modal-field:nth-child(2) { transition-delay: 0.25s; }
+  .modal-overlay.active .modal-field:nth-child(3) { transition-delay: 0.35s; }
+
+  .modal-field label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 8px;
+  }
+
+  .modal-field input,
+  .modal-field textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--mid);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.3s;
+    resize: vertical;
+  }
+
+  .modal-field input:focus,
+  .modal-field textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .modal-field input::placeholder,
+  .modal-field textarea::placeholder {
+    color: #444;
+  }
+
+  .modal-form button.btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .modal-form button.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .modal-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .modal-success.visible {
+    display: block;
+  }
+
+  .check-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid var(--accent2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    animation: pop-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .check-circle svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--accent2);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: draw-check 0.4s ease 0.3s forwards;
+  }
+
+  @keyframes pop-in {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes draw-check {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .modal-success h4 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .modal-success p {
+    font-size: 14px;
+    color: var(--dim);
+    line-height: 1.6;
+  }
+
+  .modal-error {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 12px;
+    display: none;
+  }
+
   @media (max-width: 768px) {
     .site-nav { padding: 16px 24px; }
     .nav-links { display: none; }
@@ -480,6 +688,7 @@
     .schedule-block { grid-template-columns: 1fr; gap: 8px; }
     .reading-card { padding: 28px 24px; }
     .commitment-card { padding: 28px 24px; }
+    .modal { padding: 36px 24px 32px; }
     footer { flex-direction: column; gap: 16px; text-align: center; }
     footer .footer-meta { text-align: center; }
   }
@@ -540,7 +749,7 @@
       <div class="card-title">Want to Present?</div>
       <h3>5-Minute Presentation Slots Available</h3>
       <p>We're setting aside time for 3–4 participants to give short presentations to the group. This could be a story concept you're developing, a piece of research, a creative demo, a provocation — anything you want to share that takes more than a post-it. Submissions welcome ahead of the session.</p>
-      <a href="mailto:hello@machinecinema.ai?subject=Session%203%20Presentation" class="btn btn-primary">Submit to Present →</a>
+      <button class="btn btn-primary" onclick="openModal()">Submit to Present →</button>
     </div>
   </div>
 </section>
@@ -646,7 +855,51 @@
   </div>
 </footer>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-backdrop" onclick="closeModal()"></div>
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modalForm">
+      <h3>Submit to Present</h3>
+      <p class="modal-desc">Tell us your name and what you'd like to present. We'll follow up to confirm your slot.</p>
+      <form class="modal-form" onsubmit="handleSubmit(event)">
+        <div class="modal-field">
+          <label for="submitName">Your Name</label>
+          <input type="text" id="submitName" placeholder="Full name" required>
+        </div>
+        <div class="modal-field">
+          <label for="submitIdea">Your Idea</label>
+          <textarea id="submitIdea" rows="5" placeholder="What do you want to present? A story concept, a research thread, a creative experiment, a provocation — anything that takes more than a post-it." required></textarea>
+        </div>
+        <div class="modal-field">
+          <button type="submit" class="btn btn-primary" id="submitBtn">Submit →</button>
+          <div class="modal-error" id="submitError"></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div class="check-circle">
+        <svg viewBox="0 0 24 24"><polyline points="6 12 10 16 18 8"></polyline></svg>
+      </div>
+      <h4>You're in.</h4>
+      <p>Your presentation submission has been recorded. We'll be in touch to confirm your slot for Session 3.</p>
+    </div>
+  </div>
+</div>
+
 <script>
+  // ── CONFIG ──────────────────────────────────────────────
+  // To enable form submissions, create a fine-grained GitHub
+  // Personal Access Token with Contents read/write access
+  // scoped to the caligarn/sfsf-salon repository.
+  const GITHUB_TOKEN = '';
+  const REPO_OWNER = 'caligarn';
+  const REPO_NAME = 'sfsf-salon';
+  const FILE_PATH = 'submissions/presentations.md';
+  // ────────────────────────────────────────────────────────
+
+  // Intersection observer for fade-in animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -654,8 +907,109 @@
       }
     });
   }, { threshold: 0.15 });
-
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Modal open/close
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    const overlay = document.getElementById('modalOverlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    // Reset form after close animation
+    setTimeout(() => {
+      document.getElementById('modalForm').style.display = '';
+      document.getElementById('modalSuccess').classList.remove('visible');
+      document.querySelector('.modal-form').reset();
+      document.getElementById('submitError').style.display = 'none';
+      document.getElementById('submitBtn').disabled = false;
+      document.getElementById('submitBtn').textContent = 'Submit →';
+    }, 500);
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('submitName').value.trim();
+    const idea = document.getElementById('submitIdea').value.trim();
+    const btn = document.getElementById('submitBtn');
+    const errorEl = document.getElementById('submitError');
+
+    if (!name || !idea) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    errorEl.style.display = 'none';
+
+    const date = new Date().toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    const newEntry = `\n---\n\n**${name}**\\\n*Submitted: ${date}*\n\n${idea}\n`;
+
+    try {
+      if (!GITHUB_TOKEN) throw new Error('GitHub token not configured.');
+
+      // Get current file
+      const getRes = await fetch(
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+        { headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' } }
+      );
+
+      let sha, currentContent;
+      if (getRes.ok) {
+        const data = await getRes.json();
+        sha = data.sha;
+        currentContent = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+      } else if (getRes.status === 404) {
+        currentContent = '# Presentation Submissions — Session 3\n';
+        sha = null;
+      } else {
+        throw new Error('Could not reach GitHub.');
+      }
+
+      const updatedContent = currentContent + newEntry;
+      const encoded = btoa(unescape(encodeURIComponent(updatedContent)));
+
+      const putBody = {
+        message: `New presentation submission from ${name}`,
+        content: encoded,
+      };
+      if (sha) putBody.sha = sha;
+
+      const putRes = await fetch(
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify(putBody)
+        }
+      );
+
+      if (!putRes.ok) throw new Error('Submission failed — try again.');
+
+      // Show success
+      document.getElementById('modalForm').style.display = 'none';
+      document.getElementById('modalSuccess').classList.add('visible');
+
+    } catch (err) {
+      errorEl.textContent = err.message;
+      errorEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit →';
+    }
+  }
 </script>
 
 </body>
