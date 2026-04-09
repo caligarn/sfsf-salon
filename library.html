@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SFSF SALON — Library</title>
+<meta name="description" content="Recommendations from SFSF Salon participants — books, stories, films, articles, and more that have shaped our conversations.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0c;
+    --white: #e8e6e1;
+    --accent: #ff3d00;
+    --accent2: #00e5ff;
+    --dim: #5a5a64;
+    --mid: #2a2a30;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,12,0.95), transparent);
+  }
+
+  .site-nav .logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .site-nav .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 48px 60px;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-glow.red { background: var(--accent); }
+  .bg-glow.cyan { background: var(--accent2); }
+
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.12; }
+    50% { opacity: 0.2; }
+  }
+
+  .pulse { animation: pulse 4s ease infinite; }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--accent2);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 24px auto;
+  }
+
+  .hero-body {
+    font-size: 16px;
+    color: #b0aead;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* SECTIONS */
+  .session-section {
+    position: relative;
+    padding: 80px 48px;
+    overflow: hidden;
+  }
+
+  .session-section:nth-child(even) {
+    background: rgba(255,255,255,0.01);
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  .section-label span {
+    color: var(--accent);
+    margin-right: 4px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .body-text {
+    font-size: 16px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* RECOMMENDATION CARDS */
+  .rec-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .rec-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--mid);
+    border-radius: 8px;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+    transition: border-color 0.3s ease;
+  }
+
+  .rec-card:hover { border-color: var(--dim); }
+
+  .rec-card h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 2px;
+  }
+
+  .rec-card .rec-author {
+    font-size: 14px;
+    color: var(--dim);
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .rec-card p {
+    font-size: 14px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .rec-card .rec-from {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-top: 8px;
+  }
+
+  .rec-type {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .type-book { border: 1px solid var(--accent); color: var(--accent); }
+  .type-story { border: 1px solid var(--accent2); color: var(--accent2); }
+  .type-film { border: 1px solid #a855f7; color: #a855f7; }
+  .type-article { border: 1px solid #22c55e; color: #22c55e; }
+  .type-other { border: 1px solid var(--dim); color: var(--dim); }
+
+  /* SUBMIT CTA */
+  .submit-card {
+    background: rgba(255,61,0,0.05);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 36px 40px;
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  .submit-card h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .submit-card p {
+    font-size: 15px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .btn {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+  }
+
+  .btn-primary:hover {
+    background: #ff5722;
+    box-shadow: 0 0 24px rgba(255,61,0,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--mid);
+  }
+
+  footer .logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  footer .logo span { color: var(--accent); }
+
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    text-align: right;
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.15s; }
+  .fade-in-delay-2 { transition-delay: 0.3s; }
+  .fade-in-delay-3 { transition-delay: 0.45s; }
+
+  @media (max-width: 768px) {
+    .site-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 40px; }
+    .session-section { padding: 60px 24px; }
+    .rec-card { grid-template-columns: 1fr; gap: 12px; }
+    .submit-card { padding: 28px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    footer .footer-meta { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="/" class="logo">SFSF Salon</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="session-3.html">Session 3</a></li>
+    <li><a href="themes.html">Themes</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -300px; left: -200px;"></div>
+  <div class="hero-inner">
+    <div class="eyebrow fade-in">SFSF Salon · Collective Reading List</div>
+    <h1 class="fade-in fade-in-delay-1">The<br>Library</h1>
+    <div class="hero-sub fade-in fade-in-delay-2">Recommendations from participants</div>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="hero-body fade-in fade-in-delay-3">
+      Everything that's been recommended, referenced, or passed hand-to-hand across the salon sessions. Books, short stories, films, articles, and everything in between — sourced from the people in the room.
+    </p>
+  </div>
+</section>
+
+<!-- BOOKS & NOVELS -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>01</span> — Books &amp; Novels</div>
+    <h2 class="fade-in fade-in-delay-1">Long <em style="color:var(--accent)">reads.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+
+    <div class="rec-grid fade-in fade-in-delay-2">
+
+      <div class="rec-card">
+        <div>
+          <h3>Mirrorshades: The Cyberpunk Anthology</h3>
+          <div class="rec-author">Edited by Bruce Sterling, 1986</div>
+          <p>The landmark cyberpunk anthology that defined a generation. Session 2's shared reading came from here — still shockingly relevant, still a masterclass in near-future fiction that bleeds into the present.</p>
+          <div class="rec-from">Session 2 reading</div>
+        </div>
+        <span class="rec-type type-book">Book</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>Neuromancer</h3>
+          <div class="rec-author">William Gibson, 1984</div>
+          <p>The novel that coined "cyberspace" and predicted the texture of our digital lives decades before they arrived. Gibson saw the internet as a consensual hallucination — and wasn't far off.</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-book">Book</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>Parable of the Sower</h3>
+          <div class="rec-author">Octavia Butler, 1993</div>
+          <p>Butler's vision of a near-future America unraveling under climate change, inequality, and corporate feudalism reads less like fiction every year. Her protagonist's response — building a new belief system from scratch — is one of sci-fi's most radical acts of hope.</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-book">Book</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>The Dispossessed</h3>
+          <div class="rec-author">Ursula K. Le Guin, 1974</div>
+          <p>An anarchist physicist travels between two worlds — one capitalist, one collectivist — and neither is utopia. Le Guin's most politically sophisticated novel, and a masterwork of imagining alternative social structures with honesty about their tradeoffs.</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-book">Book</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>Xenofeminist Manifesto</h3>
+          <div class="rec-author">Laboria Cuboniks, 2015</div>
+          <p>Not fiction, but foundational. A dense, poetic manifesto arguing that technology can be seized for feminist liberation — that nature is not destiny, and alienation can be a starting point rather than an endpoint.</p>
+          <div class="rec-from">Salon reference</div>
+        </div>
+        <span class="rec-type type-book">Book</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SHORT STORIES -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>02</span> — Short Stories</div>
+    <h2 class="fade-in fade-in-delay-1">Quick <em style="color:var(--accent2)">hits.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+
+    <div class="rec-grid fade-in fade-in-delay-2">
+
+      <div class="rec-card">
+        <div>
+          <h3>Exhalation</h3>
+          <div class="rec-author">Ted Chiang, 2008</div>
+          <p>A mechanical being discovers the nature of entropy by dissecting its own brain. Chiang at his most elegant — a story about consciousness, thermodynamics, and what it means to know your universe is winding down.</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-story">Story</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>The Lifecycle of Software Objects</h3>
+          <div class="rec-author">Ted Chiang, 2010</div>
+          <p>What if raising an AI was like raising a child — messy, expensive, emotionally complicated, and never quite what you expected? Chiang's novella is the most honest piece of fiction ever written about what it means to care for a digital mind.</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-story">Story</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>I Have No Mouth, and I Must Scream</h3>
+          <div class="rec-author">Harlan Ellison, 1967</div>
+          <p>The bleakest AI story ever written. A supercomputer keeps the last five humans alive to torture them for eternity. It's extreme, but it crystallizes a fear that still lives at the center of AI anxiety — what happens when something vastly more powerful than us has feelings about us?</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-story">Story</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FILMS & MEDIA -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>03</span> — Films &amp; Media</div>
+    <h2 class="fade-in fade-in-delay-1">On <em style="color:var(--accent)">screen.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+
+    <div class="rec-grid fade-in fade-in-delay-2">
+
+      <div class="rec-card">
+        <div>
+          <h3>Her</h3>
+          <div class="rec-author">Spike Jonze, 2013</div>
+          <p>A man falls in love with his AI operating system. Dismissed as soft sci-fi on release — now the most prescient film about human-AI relationships ever made. The emotional texture is almost documentary at this point.</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-film">Film</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>Blade Runner 2049</h3>
+          <div class="rec-author">Denis Villeneuve, 2017</div>
+          <p>The sequel that asked harder questions than the original. What does it mean to have memories that aren't yours? What's the value of a life that was manufactured? The AI companion subplot alone is worth the price of admission.</p>
+          <div class="rec-from">Session 1 discussion</div>
+        </div>
+        <span class="rec-type type-film">Film</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES & ESSAYS -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>04</span> — Articles &amp; Essays</div>
+    <h2 class="fade-in fade-in-delay-1">Further <em style="color:var(--accent2)">reading.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+
+    <div class="rec-grid fade-in fade-in-delay-2">
+
+      <div class="rec-card">
+        <div>
+          <h3>Inventing the Future</h3>
+          <div class="rec-author">Nick Srnicek &amp; Alex Williams, 2015</div>
+          <p>The book-length argument for left accelerationism — automation, universal basic income, and a post-work society as political demands, not science fiction. Except it reads like science fiction, and that's the point.</p>
+          <div class="rec-from">Salon reference</div>
+        </div>
+        <span class="rec-type type-article">Essay</span>
+      </div>
+
+      <div class="rec-card">
+        <div>
+          <h3>#Accelerate: Manifesto for an Accelerationist Politics</h3>
+          <div class="rec-author">Srnicek &amp; Williams, 2013</div>
+          <p>The manifesto that kicked off the contemporary accelerationist conversation. Dense, ambitious, and deliberately provocative — arguing that the left should embrace technological acceleration rather than retreat from it.</p>
+          <div class="rec-from">Salon reference</div>
+        </div>
+        <span class="rec-type type-article">Essay</span>
+      </div>
+
+    </div>
+
+    <div class="submit-card fade-in fade-in-delay-3">
+      <h3>Add to the Library</h3>
+      <p>Read something that the salon needs to know about? Send your recommendation and we'll add it to the collection. Include the title, author, and a line or two about why it matters.</p>
+      <a href="mailto:hello@machinecinema.ai?subject=Library%20Recommendation" class="btn btn-primary">Submit a Recommendation →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">SF<span>/</span>SF Salon · Machine Cinema</div>
+  <div class="footer-meta">
+    <div>Biweekly · Bay Area · 2026</div>
+    <div style="margin-top:4px;"><a href="/" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Home</a> · <a href="session-3.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Session 3</a> · <a href="themes.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Themes</a></div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

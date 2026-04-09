@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SFSF SALON — Themes &amp; Philosophies</title>
+<meta name="description" content="Themes and philosophical frameworks inspiring the SFSF Salon — the movements and ideas shaping the science fiction we need now.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0c;
+    --white: #e8e6e1;
+    --accent: #ff3d00;
+    --accent2: #00e5ff;
+    --dim: #5a5a64;
+    --mid: #2a2a30;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,12,0.95), transparent);
+  }
+
+  .site-nav .logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .site-nav .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 48px 60px;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-glow.red { background: var(--accent); }
+  .bg-glow.cyan { background: var(--accent2); }
+
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.12; }
+    50% { opacity: 0.2; }
+  }
+
+  .pulse { animation: pulse 4s ease infinite; }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--accent2);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 24px auto;
+  }
+
+  .hero-body {
+    font-size: 16px;
+    color: #b0aead;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* SECTIONS */
+  .session-section {
+    position: relative;
+    padding: 80px 48px;
+    overflow: hidden;
+  }
+
+  .session-section:nth-child(even) {
+    background: rgba(255,255,255,0.01);
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+
+  .section-label span {
+    color: var(--accent);
+    margin-right: 4px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .body-text {
+    font-size: 16px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* THEME CARDS */
+  .theme-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .theme-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--mid);
+    border-radius: 8px;
+    padding: 36px 40px;
+    transition: border-color 0.3s ease;
+  }
+
+  .theme-card:hover { border-color: var(--dim); }
+
+  .theme-card h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  .theme-card .theme-tagline {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .theme-card p {
+    font-size: 15px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .theme-card .theme-questions {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--accent2);
+    line-height: 1.6;
+  }
+
+  /* PHILOSOPHY CARDS */
+  .phil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .phil-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--mid);
+    border-radius: 8px;
+    padding: 32px;
+    transition: border-color 0.3s ease;
+  }
+
+  .phil-card:hover { border-color: var(--accent2); }
+
+  .phil-card h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  .phil-card .phil-origin {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 12px;
+  }
+
+  .phil-card p {
+    font-size: 14px;
+    color: #b0aead;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .phil-card .phil-relevance {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--accent2);
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--mid);
+  }
+
+  footer .logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  footer .logo span { color: var(--accent); }
+
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    text-align: right;
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.15s; }
+  .fade-in-delay-2 { transition-delay: 0.3s; }
+  .fade-in-delay-3 { transition-delay: 0.45s; }
+
+  @media (max-width: 768px) {
+    .site-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 40px; }
+    .session-section { padding: 60px 24px; }
+    .phil-grid { grid-template-columns: 1fr; }
+    .theme-card { padding: 28px 24px; }
+    .phil-card { padding: 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    footer .footer-meta { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="/" class="logo">SFSF Salon</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="session-3.html">Session 3</a></li>
+    <li><a href="library.html">Library</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow red pulse" style="top: -200px; right: -200px;"></div>
+  <div class="bg-glow cyan pulse" style="bottom: -300px; left: -200px;"></div>
+  <div class="hero-inner">
+    <div class="eyebrow fade-in">SFSF Salon · Reference</div>
+    <h1 class="fade-in fade-in-delay-1">Themes &amp;<br>Philosophies</h1>
+    <div class="hero-sub fade-in fade-in-delay-2">The movements and ideas shaping our work</div>
+    <div class="divider fade-in fade-in-delay-2"></div>
+    <p class="hero-body fade-in fade-in-delay-3">
+      These are the creative movements and philosophical frameworks that inform the SFSF Salon. They're not prescriptions — they're starting points, provocations, lenses for thinking about the fiction we want to make.
+    </p>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>01</span> — Themes</div>
+    <h2 class="fade-in fade-in-delay-1">Creative <em style="color:var(--accent)">movements.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <p class="body-text fade-in fade-in-delay-2">
+      Genres and aesthetics that are shaping the kind of science fiction we think matters right now. These aren't just labels — they represent different answers to the question: what kind of future do we want to imagine?
+    </p>
+
+    <div class="theme-grid">
+
+      <div class="theme-card fade-in">
+        <div class="theme-tagline">Optimism as Resistance</div>
+        <h3>Hopecore</h3>
+        <p>Science fiction doesn't have to be a warning. Hopecore is the deliberate choice to imagine futures worth living in — not naive utopias, but worlds where people have figured some things out. Where technology serves human flourishing. Where the default narrative isn't collapse. In a media landscape saturated with dystopia, choosing to write hope is a radical act.</p>
+        <div class="theme-questions">What does a good AI future actually look like? What's the science fiction that makes people want to build, not just survive?</div>
+      </div>
+
+      <div class="theme-card fade-in">
+        <div class="theme-tagline">Ecological &amp; Decentralized Futures</div>
+        <h3>Solarpunk</h3>
+        <p>Where cyberpunk gave us neon-lit corporate dystopias, solarpunk imagines communities that have integrated technology with ecology. Think vertical gardens on communal housing, open-source energy grids, cities designed around human and non-human life alike. It's not anti-tech — it's tech in service of sustainability, community, and beauty.</p>
+        <div class="theme-questions">What does a city look like when AI optimizes for biodiversity instead of profit? What happens when the infrastructure is beautiful?</div>
+      </div>
+
+      <div class="theme-card fade-in">
+        <div class="theme-tagline">Centering the Diaspora in Tomorrow</div>
+        <h3>Afrofuturism</h3>
+        <p>Afrofuturism reclaims the future for the African diaspora — blending technology, mythology, and liberation into visions of tomorrow that center Black experience and imagination. From Sun Ra to Octavia Butler to Black Panther, it insists that the future isn't just one culture's to imagine. It challenges who gets to be the protagonist of the future and whose past is woven into it.</p>
+        <div class="theme-questions">Whose futures are we building? Who is centered in the AI narrative, and who should be?</div>
+      </div>
+
+      <div class="theme-card fade-in">
+        <div class="theme-tagline">After Scarcity, Then What?</div>
+        <h3>Post-Scarcity Fiction</h3>
+        <p>What happens when material needs are met — when energy is abundant, production is automated, and the basic economics of survival are solved? Post-scarcity fiction explores the harder questions that come after: What do people do with their time? What new hierarchies emerge? What does meaning look like when survival isn't the story? AI is accelerating us toward some version of this, and almost no fiction is wrestling with it honestly.</p>
+        <div class="theme-questions">If AI solves production, what does it do to purpose? What's the new conflict in a world without material want?</div>
+      </div>
+
+      <div class="theme-card fade-in">
+        <div class="theme-tagline">Beyond the Human Lens</div>
+        <h3>Xenofiction</h3>
+        <p>Stories told from genuinely non-human perspectives — not anthropomorphized animals, but truly alien cognition. As AI systems become more capable, xenofiction becomes less speculative and more urgent. What does it mean to share a world with minds that think differently from us? Not better or worse — just different in ways we can barely conceptualize.</p>
+        <div class="theme-questions">Can we write the interior life of an intelligence that isn't like ours? What does LLM fiction look like — not fiction about LLMs, but fiction from their perspective?</div>
+      </div>
+
+      <div class="theme-card fade-in">
+        <div class="theme-tagline">Hauntology &amp; Lost Futures</div>
+        <h3>Retrofuturism</h3>
+        <p>The futures that never arrived haunt the present. Retrofuturism looks at the gap between what was promised and what was delivered — space colonies that became surveillance capitalism, flying cars that became food delivery drones. There's creative power in mourning lost futures and asking why they were lost. Sometimes the most radical sci-fi imagines the future we were supposed to get.</p>
+        <div class="theme-questions">What futures did we lose along the way? What would it mean to go back and take the other path?</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHIES -->
+<section class="session-section">
+  <div class="section-inner">
+    <div class="section-label fade-in"><span>02</span> — Philosophies</div>
+    <h2 class="fade-in fade-in-delay-1">Foundational <em style="color:var(--accent2)">thinking.</em></h2>
+    <div class="divider fade-in fade-in-delay-1" style="margin-left: 0;"></div>
+    <p class="body-text fade-in fade-in-delay-2">
+      The philosophical frameworks that underpin and inspire the salon's conversations. These are the thinkers and movements that have shaped how we think about technology, society, and the future — and that give us language for the science fiction we're trying to write.
+    </p>
+
+    <div class="phil-grid">
+
+      <div class="phil-card fade-in">
+        <h3>Xenofeminism</h3>
+        <div class="phil-origin">Laboria Cuboniks · 2015</div>
+        <p>A technomaterialist feminism that embraces alienation and repurposes technology as a tool for liberation. Xenofeminism refuses to naturalize oppression — if nature is unjust, change nature. It sees technology not as inherently patriarchal but as a terrain of political struggle that can be seized and redirected toward emancipation.</p>
+        <div class="phil-relevance">For the salon: What if AI is a feminist tool? What does liberation look like when the means of production include the means of cognition?</div>
+      </div>
+
+      <div class="phil-card fade-in">
+        <h3>Left Accelerationism</h3>
+        <div class="phil-origin">Srnicek &amp; Williams · 2013</div>
+        <p>Instead of resisting technological acceleration, left accelerationism argues we should push through it — redirecting capitalism's technological momentum toward post-work, post-scarcity, and collective liberation. The problem isn't that technology is moving too fast. The problem is that the wrong people are steering.</p>
+        <div class="phil-relevance">For the salon: What's the fiction of acceleration that isn't dystopia? What does it look like to steer instead of resist?</div>
+      </div>
+
+      <div class="phil-card fade-in">
+        <h3>Speculative Realism</h3>
+        <div class="phil-origin">Meillassoux, Harman, Brassier · 2007</div>
+        <p>A philosophical movement that rejects the idea that reality is always filtered through human consciousness. The world exists independent of our perception of it — and thinking seriously about that opens up radical new ways of imagining non-human perspectives, alien objects, and timescales that dwarf human experience.</p>
+        <div class="phil-relevance">For the salon: How do you write fiction from the perspective of something that genuinely isn't human — not as metaphor, but as reality?</div>
+      </div>
+
+      <div class="phil-card fade-in">
+        <h3>Cosmism</h3>
+        <div class="phil-origin">Nikolai Fedorov · 1903 / Modern Revival</div>
+        <p>The Russian philosophical tradition that sees humanity's purpose as cosmic — resurrecting the dead, conquering aging, spreading consciousness throughout the universe. It's simultaneously spiritual and technological, ancient and futuristic. Cosmism treats the expansion of intelligence as a moral imperative, not just a commercial opportunity.</p>
+        <div class="phil-relevance">For the salon: What if the AI story isn't about Earth at all? What does intelligence look like on cosmological timescales?</div>
+      </div>
+
+      <div class="phil-card fade-in">
+        <h3>Metamodernism</h3>
+        <div class="phil-origin">Vermeulen &amp; van den Akker · 2010</div>
+        <p>An oscillation between modernist sincerity and postmodern irony — a cultural logic that allows us to be earnest and self-aware at the same time. Metamodernism gives us permission to take big ideas seriously again without being naive about them. It's the philosophical basis for caring about the future while knowing the future is unknowable.</p>
+        <div class="phil-relevance">For the salon: How do we write science fiction that is hopeful without being naive, critical without being cynical?</div>
+      </div>
+
+      <div class="phil-card fade-in">
+        <h3>Ubuntu Philosophy</h3>
+        <div class="phil-origin">Southern African Tradition</div>
+        <p>"I am because we are." Ubuntu centers relational identity and communal wellbeing over individualism. In a tech landscape obsessed with individual disruption and personal optimization, Ubuntu offers a fundamentally different frame: intelligence, creativity, and progress as inherently collective.</p>
+        <div class="phil-relevance">For the salon: What does AI look like when designed for "we" instead of "I"? What's the communal science fiction?</div>
+      </div>
+
+      <div class="phil-card fade-in">
+        <h3>Degrowth</h3>
+        <div class="phil-origin">Latouche, Kallis, Hickel · 2000s</div>
+        <p>A political-economic framework that challenges the assumption that growth is always good. Degrowth asks: what if the goal isn't more, but enough? What if we deliberately scaled down production and consumption to live within planetary limits — and used technology to make that life richer, not poorer?</p>
+        <div class="phil-relevance">For the salon: What's the sci-fi of less? What does a deliberately smaller, more intentional civilization look like with advanced AI?</div>
+      </div>
+
+      <div class="phil-card fade-in">
+        <h3>Longtermism</h3>
+        <div class="phil-origin">MacAskill, Ord, Bostrom · 2010s</div>
+        <p>The view that improving the long-term future is a key moral priority of our time. Longtermism takes seriously the idea that billions of future people matter — and that decisions we make now about AI, existential risk, and civilization design ripple forward across millennia. It reframes the present as a hinge point in the human story.</p>
+        <div class="phil-relevance">For the salon: What does it mean to write fiction for people who don't exist yet? What's our responsibility to the far future?</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">SF<span>/</span>SF Salon · Machine Cinema</div>
+  <div class="footer-meta">
+    <div>Biweekly · Bay Area · 2026</div>
+    <div style="margin-top:4px;"><a href="/" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Home</a> · <a href="session-3.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Session 3</a> · <a href="library.html" style="color:var(--dim); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">Library</a></div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
