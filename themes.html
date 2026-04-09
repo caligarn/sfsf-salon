@@ -73,6 +73,27 @@
 
   .nav-links a:hover { color: var(--white); }
 
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--white);
+    margin: 5px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
+
   /* HERO */
   .hero {
     min-height: 60vh;
@@ -364,7 +385,22 @@
 
   @media (max-width: 768px) {
     .site-nav { padding: 16px 24px; }
-    .nav-links { display: none; }
+    .menu-toggle { display: block; }
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,12,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      z-index: 99;
+    }
+    .nav-links.active { display: flex; }
+    .nav-links a { font-size: 14px; color: var(--white); }
     .hero { padding: 100px 24px 40px; }
     .session-section { padding: 60px 24px; }
     .phil-grid { grid-template-columns: 1fr; }
@@ -385,6 +421,7 @@
     <li><a href="session-3.html">Session 3</a></li>
     <li><a href="library.html">Library</a></li>
   </ul>
+  <button class="menu-toggle" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
